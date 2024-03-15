@@ -1,0 +1,1 @@
+export const url = 'https://ibm-hr-fb7f2-default-rtdb.asia-southeast1.firebasedatabase.app/'

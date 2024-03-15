@@ -1,0 +1,36 @@
+.Nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    height: 50px;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.logo {
+    padding-left: 32px;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+ul {
+    display: flex;
+    padding-right: 32px;
+    gap: 16px;
+}
+
+.Nav a {
+    color: black;
+    text-decoration: none;
+}
+
+.Nav a:hover {
+    text-decoration: underline;
+    color: black;
+}
