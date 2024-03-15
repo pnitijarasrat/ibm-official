@@ -55,6 +55,7 @@ const AuthProvider = ({ children }) => {
                 setToken(tryUsername[0].key)
                 setRole(tryUsername[0].role)
                 localStorage.setItem("site", tryUsername[0].key)
+                localStorage.setItem("user", tryUsername[0].user)
                 navigate('/')
                 return
             }
