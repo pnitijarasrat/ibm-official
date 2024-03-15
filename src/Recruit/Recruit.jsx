@@ -46,6 +46,7 @@ export default function Recruit() {
                                     period={job.period}
                                     department={job.department}
                                     get={getJob}
+                                    link={job.link}
                                 />
                             ))) : <div>No Job Available.</div>
                         :

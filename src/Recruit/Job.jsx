@@ -59,7 +59,7 @@ export default function Job({
                             <p className="job-desc">{desc}</p>
                         </Col>
                         <Col span={12} push={14}>
-                            <a href={link} target="_blank" rel="noopener noreferrer">
+                            <a href={link} target="_blank" rel="noreferrer">
                                 <button>Apply</button>
                             </a>
                         </Col>
