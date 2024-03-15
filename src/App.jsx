@@ -17,8 +17,8 @@ function App() {
           <Route path='/sign-in' element={<SignIn />} />
           <Route element={<PrivateRoute />} >
             <Route path='/' element={<Home />} />
+            <Route path='/recruit' element={<Recruit />} />
           </Route>
-          <Route path='/recruit' element={<Recruit />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
