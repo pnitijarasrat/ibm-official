@@ -6,6 +6,7 @@ import AuthProvider from './Authenticate/AuthProvider'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import PrivateRoute from './Authenticate/PrivateRoute'
+import Register from './Register/Register'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Nav />
         <Routes>
           <Route path='/sign-in' element={<SignIn />} />
+          <Route path='/register' element={<Register />} />
           <Route element={<PrivateRoute />} >
             <Route path='/' element={<Home />} />
             <Route path='/recruit' element={<Recruit />} />

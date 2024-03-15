@@ -1,5 +1,6 @@
 import { Form, Input } from "antd";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import './SignIn.css'
 import { useAuth } from "./AuthProvider";
@@ -7,6 +8,7 @@ import { useAuth } from "./AuthProvider";
 export default function SignIn() {
     const [logInForm] = Form.useForm()
     const auth = useAuth()
+    const navigate = useNavigate()
 
     return (
         <div className="sign-in">
@@ -19,11 +21,11 @@ export default function SignIn() {
                 <Form.Item name="password" label="Password" rules={[{ required: true, message: 'Required' }]}>
                     <Input.Password />
                 </Form.Item>
-                <div className="sign-in-action">
-                    <button onClick={() => auth.logIn(logInForm)}>Log In</button>
-                    <button>Sign Up</button>
-                </div>
             </Form>
+            <div className="sign-in-action">
+                <button onClick={() => auth.logIn(logInForm)}>Log In</button>
+                <button onClick={() => navigate('/register')}>Sign Up</button>
+            </div>
         </div>
     )
 }

@@ -1,6 +1,5 @@
 .sign-in {
-    width: 100vw;
-    height: calc(100vw - 200px);
+    height: calc(100vh - 200px);
     display: flex;
     margin-top: 200px;
     flex-direction: column;

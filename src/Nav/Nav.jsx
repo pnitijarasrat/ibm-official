@@ -14,11 +14,11 @@ export default function Nav() {
                     <ul>
                         <Link to={'/'}>Home</Link>
                         <Link to={'/recruit'}>Recruit</Link>
-                        <span onClick={() => auth.logOut()}>Log Out</span>
+                        <button onClick={() => auth.logOut()}>Log Out</button>
+                        <span className="nav-user">{auth.user}</span>
                     </ul>
                     :
                     <ul>
-                        <Link to={'/sign-in'}>Log In</Link>
                     </ul>
             }
 

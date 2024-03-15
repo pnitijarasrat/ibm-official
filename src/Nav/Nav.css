@@ -23,6 +23,7 @@ ul {
     display: flex;
     padding-right: 32px;
     gap: 16px;
+    align-items: center;
 }
 
 .Nav a {
@@ -33,4 +34,9 @@ ul {
 .Nav a:hover {
     text-decoration: underline;
     color: black;
+}
+
+.nav-user {
+    border-left: 1px solid #333;
+    padding-left: 16px;
 }
