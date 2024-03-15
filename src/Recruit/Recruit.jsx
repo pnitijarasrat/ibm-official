@@ -6,36 +6,52 @@ import { url } from "../const/url";
 
 export default function Recruit() {
     const [job, setJob] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
-    useEffect(() => {
-        async function getJob() {
+    async function getJob() {
+        setIsLoading(true)
+        try {
+
             const res = await fetch(`${url}job.json`)
             const data = await res.json()
-            const jobArray = dataRemap(data)
-            console.log(jobArray)
+            let jobArray = []
+            if (data) {
+                jobArray = dataRemap(data)
+            }
             setJob(jobArray)
             setIsLoading(false)
+        } catch (e) {
+            setIsLoading(false)
+            console.log(e)
         }
-        getJob()
+    }
 
+    useEffect(() => {
+        getJob()
     }, [])
 
     return (
-        <div className="page-container" >
-            <h1>Currently Recruit</h1>
-            {
-                !isLoading !== 0 &&
-                job.map((job) => (
-                    <Job
-                        key={job.key}
-                        name={job.name}
-                        desc={job.desc}
-                        period={job.period}
-                        department={job.department}
-                    />
-                ))
-            }
-        </div>
+        <>
+            <div className="page-container" >
+                <h1>Currently Recruit</h1>
+                {
+                    !isLoading ?
+                        job.length !== 0 ?
+                            (job.map((job) => (
+                                <Job
+                                    id={job.key}
+                                    key={job.key}
+                                    name={job.name}
+                                    desc={job.desc}
+                                    period={job.period}
+                                    department={job.department}
+                                    get={getJob}
+                                />
+                            ))) : <div>No Job Available.</div>
+                        :
+                        <div>Loading...</div>
+                }
+            </div>
+        </>
     )
 }
