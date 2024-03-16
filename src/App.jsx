@@ -13,7 +13,7 @@ import PrivateRoute from './Authenticate/PrivateRoute'
 import Register from './Register/Register'
 
 function App() {
-
+  // getDisplayRole function
 
   return (
     <BrowserRouter>

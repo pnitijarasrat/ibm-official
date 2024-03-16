@@ -11,11 +11,11 @@ export default function NewAnnouncement() {
     const [isAdding, setIsAdding] = useState(false)
 
     const [announcementForm] = Form.useForm()
-    const auth = useAuth()
+    const user = useAuth()
     const navigate = useNavigate()
     const { success, error, contextHolder } = MessageAPI()
 
-    if (isAdmin(auth.role)) return <Navigate to='/' />
+    if (!isAdmin(user.role)) return <Navigate to='/' />
 
     const addNewAnnouncement = async (newAnnouncement) => {
         setIsAdding(true)
