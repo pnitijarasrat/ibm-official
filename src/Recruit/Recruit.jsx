@@ -17,7 +17,6 @@ export default function Recruit() {
     async function getJob() {
         setIsLoading(true)
         try {
-
             const res = await fetch(`${url}job.json`)
             const data = await res.json()
             let jobArray = []

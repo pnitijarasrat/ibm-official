@@ -1,10 +1,11 @@
-import { Form, Input } from "antd";
+import { Form, Input, Select } from "antd";
 import { useNavigate, Navigate } from "react-router-dom";
 import { url } from "../const/url";
 import React, { useState } from "react";
 import MessageAPI from "../Message/Message";
 import { useAuth } from "../Authenticate/AuthProvider";
 import { isAdmin } from "../function/role";
+import { departmentOptions } from '../const/department'
 import {
     LoadingOutlined
 } from '@ant-design/icons';
@@ -62,7 +63,7 @@ export default function NewRecruitment() {
                         <Input />
                     </Form.Item>
                     <Form.Item label="Department" name="department" rules={rule}>
-                        <Input />
+                        <Select options={departmentOptions} />
                     </Form.Item >
                     <Form.Item label="Period" name="period" rules={rule}>
                         <Input />

@@ -3,6 +3,7 @@ import Home from './Home/Home'
 import SignIn from './Authenticate/SignIn'
 import Recruit from './Recruit/Recruit'
 import NewRecruitment from './Recruit/NewRecruitment'
+import NewAnnouncement from './Home/newAnnouncement'
 import AuthProvider from './Authenticate/AuthProvider'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
@@ -22,6 +23,7 @@ function App() {
           <Route element={<PrivateRoute />} >
             <Route path='/' element={<Home />} />
             <Route path='/new-recruit' element={<NewRecruitment />} />
+            <Route path='/new-announcement' element={<NewAnnouncement />} />
             <Route path='/recruit' element={<Recruit />} />
           </Route>
         </Routes>
