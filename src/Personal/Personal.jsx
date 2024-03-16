@@ -1,0 +1,102 @@
+import React, { useEffect, useState } from "react";
+import { useAuth } from '../Authenticate/AuthProvider'
+import { useParams } from "react-router-dom";
+import { url } from "../const/url";
+import { Space, Divider } from "antd";
+import { dataRemap } from "../function/dataRemap";
+
+export default function Personal() {
+    const [isLoading, setIsLoading] = useState(false)
+    const [userData, setUserData] = useState(null)
+    const [history, setHistory] = useState([])
+
+    const { userId } = useParams()
+
+    const getUserData = async () => {
+        setIsLoading(true)
+        try {
+            const res = await fetch(`${url}/account/${userId}.json`)
+            const data = await res.json()
+            setUserData(data)
+            await getHistory()
+            setIsLoading(false)
+        } catch (e) {
+            setIsLoading(false)
+        }
+    }
+
+    const getHistory = async () => {
+        setIsLoading(true)
+        try {
+            const res = await fetch(`${url}applyHistory.json`)
+            const data = await res.json()
+            let historyArray = []
+            if (data) historyArray = dataRemap(data)
+            setHistory(historyArray.filter((his) => { his.employeeId === userData.key }))
+            setIsLoading(false)
+        } catch (e) {
+            setIsLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        getUserData()
+    }, [])
+
+    return (
+        <div className="page-container">
+            <h2>Personal Information</h2>
+            {
+                isLoading ?
+                    <div>Loading...</div>
+                    :
+                    userData ?
+                        <Space direction="vertical">
+                            <div>Name: {userData.firstName} {userData.lastName}</div>
+                            <div>Employee ID: {userData.name}</div>
+                            <div>Role: {userData.role}</div>
+                            <div>Branch: {userData.branch}</div>
+                        </Space>
+                        :
+                        <div>No Data</div>
+            }
+            <Divider />
+            <h2>Pending Request [{history.filter((his) => (his.status === 'pending')).length}]</h2>
+            {
+                isLoading ?
+                    <div>Loading...</div>
+                    :
+                    history.filter((his) => (his.status === 'pending')).length > 0 ?
+                        <Space direction="vertical">
+                            {
+                                history.map((his) => (
+                                    <div key={his.key}>
+                                        <div>Project Name: {his.jobName}</div>
+                                    </div>
+                                ))
+                            }
+                        </Space> :
+                        <div>No pending request</div>
+            }
+            <Divider />
+            <h2>Approved Request [{history.filter((his) => (his.status === 'approve')).length}]</h2>
+            {
+                isLoading ?
+                    <div>Loading...</div>
+                    :
+                    history.filter((his) => (his.status === 'approve')).length > 0 ?
+                        <Space direction="vertical">
+                            {
+                                history.map((his) => (
+                                    <div key={his.key}>
+                                        <div>Project Name: {his.jobName}</div>
+                                    </div>
+                                ))
+                            }
+                        </Space> :
+                        <div>No approved project</div>
+            }
+            <Divider />
+        </div>
+    )
+}

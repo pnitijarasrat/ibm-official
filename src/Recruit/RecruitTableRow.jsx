@@ -42,6 +42,24 @@ export default function RecruitmentTableRow(
         }
     }
 
+    const decline = async () => {
+        try {
+            const res = await fetch(`${url}applyHistory/${id}.json`, {
+                method: 'DELETE',
+                body: JSON.stringify(id),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (res.ok) {
+                success("Delete")
+                await get()
+            }
+        } catch (e) {
+            error("Delete")
+        }
+    }
+
     return (
         <>
             {contextHolder}
@@ -52,7 +70,7 @@ export default function RecruitmentTableRow(
                 <br />
                 <div className="gap">
                     <button onClick={approve}>Approve</button>
-                    <button>Decline</button>
+                    <button onClick={decline}>Decline</button>
                 </div>
                 <Divider />
             </div>
