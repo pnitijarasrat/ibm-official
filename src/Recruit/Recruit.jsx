@@ -2,11 +2,17 @@ import React, { useState, useEffect } from "react";
 import './Recruit.css'
 import Job from "./Job";
 import { dataRemap } from "../function/dataRemap";
+import { useNavigate } from "react-router-dom";
 import { url } from "../const/url";
+import { useAuth } from '../Authenticate/AuthProvider'
+import { isAdmin } from "../function/role";
 
 export default function Recruit() {
     const [job, setJob] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+
+    const user = useAuth()
+    const navigate = useNavigate()
 
     async function getJob() {
         setIsLoading(true)
@@ -33,6 +39,13 @@ export default function Recruit() {
     return (
         <>
             <div className="page-container" >
+                {
+                    isAdmin(user.role) &&
+                    <div className="admin-panel">
+                        <h2>Admin</h2>
+                        <button onClick={() => navigate('/new-recruit')}>New Recruitment</button>
+                    </div>
+                }
                 <h1>Currently Recruit</h1>
                 {
                     !isLoading ?

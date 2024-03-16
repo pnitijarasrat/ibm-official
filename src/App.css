@@ -25,3 +25,20 @@ button:hover {
 .error-text {
     color: red;
 }
+
+.admin-panel {
+    border: 2px solid #333;
+    padding: 16px 24px;
+}
+
+.footer {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+}
+
+.gap {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Row, Col } from "antd"
 import { url } from "../const/url";
+import MessageAPI from '../Message/Message'
 import {
     LoadingOutlined
 } from '@ant-design/icons';
@@ -16,6 +17,8 @@ export default function Job({
 }) {
 
     const [isDeleting, setIsDeleting] = useState(false)
+
+    const { success, error, contextHolder } = MessageAPI()
 
     const deleteJob = async () => {
         setIsDeleting(true)
@@ -38,6 +41,7 @@ export default function Job({
     }
     return (
         <>
+            {contextHolder}
             <div className="job-card">
                 <div style={{ width: '80%' }}>
                     <h2>
@@ -48,11 +52,12 @@ export default function Job({
                     <span>
                         Period:   {period}
                     </span>
-                    <div>
-                        <p className="job-desc">Description: {desc}</p>
+                    <p className="job-desc">Description: {desc}</p>
+                    <div className="gap">
                         <a href={link} target="_blank" rel="noreferrer">
                             <button>Apply</button>
                         </a>
+                        <button onClick={deleteJob}>Delete</button>
                     </div>
                 </div>
             </div>
