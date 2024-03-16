@@ -15,7 +15,7 @@ export default function Nav() {
                         <Link to={'/'}>Home</Link>
                         <Link to={'/recruit'}>Recruit</Link>
                         <button onClick={() => auth.logOut()}>Log Out</button>
-                        <span className="nav-user">{localStorage.getItem("user")}</span>
+                        <span className="nav-user">{auth.user}</span>
                     </ul>
                     :
                     <ul>

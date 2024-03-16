@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
     const [isLogging, setIsLogging] = useState(false)
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(localStorage.getItem("user") || null)
     const [token, setToken] = useState(localStorage.getItem("site") || "")
     const [role, setRole] = useState(null)
     const { error, contextHolder } = MessageAPI()
