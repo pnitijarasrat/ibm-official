@@ -17,6 +17,7 @@ export default function Personal() {
         try {
             const res = await fetch(`${url}/account/${userId}.json`)
             const data = await res.json()
+            console.log(data)
             setUserData(data)
             await getHistory()
             setIsLoading(false)
@@ -32,7 +33,12 @@ export default function Personal() {
             const data = await res.json()
             let historyArray = []
             if (data) historyArray = dataRemap(data)
-            setHistory(historyArray.filter((his) => { his.employeeId === userData.key }))
+            setHistory(historyArray.filter((his) => {
+                if (his.employeeId === localStorage.getItem("user"))
+                    return his
+            }))
+            console.log(historyArray)
+            console.log(userId)
             setIsLoading(false)
         } catch (e) {
             setIsLoading(false)
@@ -66,7 +72,7 @@ export default function Personal() {
                 isLoading ?
                     <div>Loading...</div>
                     :
-                    history.filter((his) => (his.status === 'pending')).length > 0 ?
+                    history.filter((his) => (his.status === 'pending')).length !== 0 ?
                         <Space direction="vertical">
                             {
                                 history.map((his) => (
@@ -84,7 +90,7 @@ export default function Personal() {
                 isLoading ?
                     <div>Loading...</div>
                     :
-                    history.filter((his) => (his.status === 'approve')).length > 0 ?
+                    history.filter((his) => (his.status === 'approve')).length !== 0 ?
                         <Space direction="vertical">
                             {
                                 history.map((his) => (
