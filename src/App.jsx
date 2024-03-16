@@ -2,6 +2,7 @@ import Nav from './Nav/Nav'
 import Home from './Home/Home'
 import SignIn from './Authenticate/SignIn'
 import Recruit from './Recruit/Recruit'
+import RecruitTable from './Recruit/RecruitTable'
 import NewRecruitment from './Recruit/NewRecruitment'
 import NewAnnouncement from './Home/newAnnouncement'
 import AuthProvider from './Authenticate/AuthProvider'
@@ -23,6 +24,7 @@ function App() {
           <Route element={<PrivateRoute />} >
             <Route path='/' element={<Home />} />
             <Route path='/new-recruit' element={<NewRecruitment />} />
+            <Route path='/recruit-table' element={<RecruitTable />} />
             <Route path='/new-announcement' element={<NewAnnouncement />} />
             <Route path='/recruit' element={<Recruit />} />
           </Route>

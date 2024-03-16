@@ -5,6 +5,7 @@ import { url } from "../const/url";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../Authenticate/AuthProvider";
 import { departmentOptions } from "../const/department";
+import { isAdmin } from "../function/role";
 
 export default function NewAnnouncement() {
     const [isAdding, setIsAdding] = useState(false)
@@ -14,7 +15,7 @@ export default function NewAnnouncement() {
     const navigate = useNavigate()
     const { success, error, contextHolder } = MessageAPI()
 
-    if (!auth.token) return <Navigate to='/' />
+    if (isAdmin(auth.role)) return <Navigate to='/' />
 
     const addNewAnnouncement = async (newAnnouncement) => {
         setIsAdding(true)

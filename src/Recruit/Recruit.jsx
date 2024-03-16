@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { url } from "../const/url";
 import { useAuth } from '../Authenticate/AuthProvider'
 import { isAdmin } from "../function/role";
+import { Divider } from "antd";
 
 export default function Recruit() {
     const [job, setJob] = useState([])
@@ -42,10 +43,14 @@ export default function Recruit() {
                     isAdmin(user.role) &&
                     <div className="admin-panel">
                         <h2>Admin</h2>
-                        <button onClick={() => navigate('/new-recruit')}>New Recruitment</button>
+                        <div className="gap">
+                            <button onClick={() => navigate('/new-recruit')}>New Recruitment</button>
+                            <button onClick={() => navigate('/recruit-table')}>Recruitment Progress</button>
+                        </div>
                     </div>
                 }
                 <h1>Currently Recruit</h1>
+                <Divider />
                 {
                     !isLoading ?
                         job.length !== 0 ?

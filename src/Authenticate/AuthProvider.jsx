@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
     const [isLogging, setIsLogging] = useState(false)
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
-    const [user, setUser] = useState(localStorage.getItem("user") || null)
+    const [user, setUser] = useState(localStorage.getItem("user".name) || null)
     const [token, setToken] = useState(localStorage.getItem("site") || "")
     const [role, setRole] = useState(localStorage.getItem("role") || null)
     const { error, contextHolder } = MessageAPI()
@@ -56,6 +56,7 @@ const AuthProvider = ({ children }) => {
                 setRole(tryUsername[0].role)
                 localStorage.setItem("site", tryUsername[0].key)
                 localStorage.setItem("user", tryUsername[0].name)
+                localStorage.setItem("fullName", `${tryUsername[0].firstName} ${tryUsername[0].lastName}`)
                 localStorage.setItem("role", tryUsername[0].role)
                 navigate('/')
                 return
@@ -72,6 +73,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem("site");
         localStorage.removeItem("user")
         localStorage.removeItem("role")
+        localStorage.removeItem("fullName")
         navigate("/sign-in");
     };
 

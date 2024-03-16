@@ -27,7 +27,7 @@ export default function Nav() {
                             <Link to={'/'}>Home</Link>
                             <Link to={'/recruit'}>Recruit</Link>
                             <button onClick={() => auth.logOut()}>Log Out</button>
-                            <span className="nav-user">{localStorage.getItem("user")}</span>
+                            <span className="nav-user">{localStorage.getItem("fullName")}</span>
                         </ul>
                         :
                         <ul style={{ marginRight: '16px' }}>
@@ -45,7 +45,7 @@ export default function Nav() {
                         <div onClick={handleMenuClick}>
                             <CloseOutlined />
                         </div>
-                        <span>{localStorage.getItem("user")}</span>
+                        <span>{localStorage.getItem("fullName")}</span>
                         <Link to={'/'}>Home</Link>
                         <Link to={'/recruit'}>Recruit</Link>
                         <button onClick={() => {

@@ -5,6 +5,8 @@ import MessageAPI from '../Message/Message'
 import {
     LoadingOutlined
 } from '@ant-design/icons';
+import { isAdmin } from "../function/role";
+import { useAuth } from "../Authenticate/AuthProvider";
 
 export default function Job({
     id,
@@ -17,6 +19,9 @@ export default function Job({
 }) {
 
     const [isDeleting, setIsDeleting] = useState(false)
+    const [isApplying, setIsApplying] = useState(false)
+
+    const user = useAuth()
 
     const { success, error, contextHolder } = MessageAPI()
 
@@ -37,7 +42,33 @@ export default function Job({
         } catch (e) {
             console.log(e)
         }
+    }
 
+    const apply = async () => {
+        setIsApplying(true)
+        const payload = {
+            jobId: id,
+            jobName: name,
+            department: department,
+            employeeName: localStorage.getItem("fullName"),
+            employeeId: localStorage.getItem("user"),
+            status: 'pending'
+        }
+        try {
+            const res = await fetch(`${url}applyHistory.json`, {
+                method: 'POST',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (res.ok) {
+                setIsApplying(false)
+                success("Apply")
+            }
+        } catch (e) {
+            error("Apply")
+        }
     }
     return (
         <>
@@ -54,10 +85,10 @@ export default function Job({
                     </span>
                     <p className="job-desc">Description: {desc}</p>
                     <div className="gap">
-                        <a href={link} target="_blank" rel="noreferrer">
-                            <button>Apply</button>
-                        </a>
-                        <button onClick={deleteJob}>Delete</button>
+                        <button onClick={apply}>Apply</button>
+                        {isAdmin(user.role) &&
+                            <button onClick={deleteJob}>Delete</button>
+                        }
                     </div>
                 </div>
             </div>
