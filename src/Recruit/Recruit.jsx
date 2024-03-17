@@ -11,11 +11,30 @@ import { Divider } from "antd";
 export default function Recruit() {
     const [job, setJob] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [history, setHistory] = useState([])
 
     const user = useAuth()
     const navigate = useNavigate()
 
-    async function getJob() {
+    const getHistory = async () => {
+        setIsLoading(true)
+        try {
+            const res = await fetch(`${url}applyHistory.json`)
+            const data = await res.json()
+            let historyArray = []
+            if (data) historyArray = dataRemap(data)
+            const applied = historyArray
+                .filter((his) => (his.employeeId === localStorage.getItem("user")))
+                .map((a) => (a.jobId))
+            setHistory(applied)
+            await getJob(applied)
+            setIsLoading(false)
+        } catch (e) {
+            setIsLoading(false)
+        }
+    }
+
+    async function getJob(applied) {
         setIsLoading(true)
         try {
             const res = await fetch(`${url}job.json`)
@@ -24,7 +43,7 @@ export default function Recruit() {
             if (data) {
                 jobArray = dataRemap(data)
             }
-            setJob(jobArray)
+            setJob(jobArray.filter((job) => !applied.includes(job.key)))
             setIsLoading(false)
         } catch (e) {
             setIsLoading(false)
@@ -33,7 +52,7 @@ export default function Recruit() {
     }
 
     useEffect(() => {
-        getJob()
+        getHistory()
     }, [])
 
     return (
@@ -65,7 +84,14 @@ export default function Recruit() {
                                     get={getJob}
                                     link={job.link}
                                 />
-                            ))) : <div>No Job Available.</div>
+                            ))) :
+                            <div>
+                                <div>
+                                    No Job Available.
+                                </div>
+                                <br />
+                                <button onClick={() => navigate(`/${localStorage.getItem("site")}`)}>Check Pending Request</button>
+                            </div>
                         :
                         <div>Loading...</div>
                 }

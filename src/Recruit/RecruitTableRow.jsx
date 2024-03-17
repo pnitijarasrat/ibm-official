@@ -2,6 +2,7 @@ import React from "react";
 import { Divider } from "antd";
 import { url } from "../const/url";
 import MessageAPI from "../Message/Message";
+import { getDisplayDepartment } from "../const/department";
 
 export default function RecruitmentTableRow(
     {
@@ -65,7 +66,7 @@ export default function RecruitmentTableRow(
             {contextHolder}
             <div key={id} className="recruit-card">
                 <div>Job Title: {jobName}</div>
-                <div>Department: {department.toUpperCase()}</div>
+                <div>Department: {getDisplayDepartment(department)}</div>
                 <div>Applicant: {employeeId} {employeeName}</div>
                 <br />
                 <div className="gap">

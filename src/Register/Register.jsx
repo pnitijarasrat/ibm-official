@@ -14,8 +14,8 @@ export default function Register() {
     const { success, contextHolder } = MessageAPI()
 
     const roleOption = [
-        { label: 'Manager', value: 'manager' },
         { label: 'Area Manager', value: 'areaManager' },
+        { label: 'Manager', value: 'manager' },
         { label: 'Assist Manager', value: 'assistManager' },
         { label: 'Operator', value: 'operator' },
     ]

@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import { isAdmin } from "../function/role";
 import { useAuth } from "../Authenticate/AuthProvider";
+import { getDisplayDepartment } from "../const/department";
 
 export default function Job({
     id,
@@ -77,7 +78,7 @@ export default function Job({
             <div className="job-card">
                 <div style={{ width: '80%' }}>
                     <h2>
-                        <span>{department}</span>
+                        <span>{getDisplayDepartment(department)}</span>
                         <span>{" - "}</span>
                         <span>{name}</span>
                     </h2>

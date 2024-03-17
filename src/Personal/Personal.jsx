@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { url } from "../const/url";
 import { Space, Divider } from "antd";
 import { dataRemap } from "../function/dataRemap";
+import { getDisplayRole } from "../function/role";
 
 export default function Personal() {
     const [isLoading, setIsLoading] = useState(false)
@@ -17,16 +18,15 @@ export default function Personal() {
         try {
             const res = await fetch(`${url}/account/${userId}.json`)
             const data = await res.json()
-            console.log(data)
             setUserData(data)
-            await getHistory()
+            await getHistory(data)
             setIsLoading(false)
         } catch (e) {
             setIsLoading(false)
         }
     }
 
-    const getHistory = async () => {
+    const getHistory = async (employee) => {
         setIsLoading(true)
         try {
             const res = await fetch(`${url}applyHistory.json`)
@@ -34,11 +34,9 @@ export default function Personal() {
             let historyArray = []
             if (data) historyArray = dataRemap(data)
             setHistory(historyArray.filter((his) => {
-                if (his.employeeId === localStorage.getItem("user"))
+                if (his.employeeId === employee.name)
                     return his
             }))
-            console.log(historyArray)
-            console.log(userId)
             setIsLoading(false)
         } catch (e) {
             setIsLoading(false)
@@ -60,7 +58,7 @@ export default function Personal() {
                         <Space direction="vertical">
                             <div>Name: {userData.firstName} {userData.lastName}</div>
                             <div>Employee ID: {userData.name}</div>
-                            <div>Role: {userData.role}</div>
+                            <div>Role: {getDisplayRole(userData.role)}</div>
                             <div>Branch: {userData.branch}</div>
                         </Space>
                         :
