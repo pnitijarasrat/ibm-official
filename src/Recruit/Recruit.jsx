@@ -11,7 +11,6 @@ import { Divider } from "antd";
 export default function Recruit() {
     const [job, setJob] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [history, setHistory] = useState([])
 
     const user = useAuth()
     const navigate = useNavigate()
@@ -26,7 +25,6 @@ export default function Recruit() {
             const applied = historyArray
                 .filter((his) => (his.employeeId === localStorage.getItem("user")))
                 .map((a) => (a.jobId))
-            setHistory(applied)
             await getJob(applied)
             setIsLoading(false)
         } catch (e) {

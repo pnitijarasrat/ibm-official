@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import RecruitmentTableRow from "./RecruitTableRow";
 import { useAuth } from "../Authenticate/AuthProvider";
 import { isAdmin } from "../function/role";
-import { Popover, Divider } from "antd";
+import { Divider } from "antd";
 import { Navigate } from "react-router-dom";
 import { url } from "../const/url";
 import { dataRemap } from "../function/dataRemap";
