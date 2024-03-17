@@ -19,19 +19,21 @@ const AuthProvider = ({ children }) => {
 
     const navigate = useNavigate()
 
-    useEffect(() => {
-        const getFunction = async () => {
-            try {
-                const res = await fetch(`${url}account.json`)
-                const data = await res.json()
-                const accountArray = dataRemap(data)
-                setAccount(accountArray)
-                setIsLoading(false)
-            } catch (e) {
-                setIsLoading(false)
-                setIsError('Load Fail')
-            }
+    const getFunction = async () => {
+        try {
+            const res = await fetch(`${url}account.json`)
+            const data = await res.json()
+            const accountArray = dataRemap(data)
+            setAccount(accountArray)
+            setIsLoading(false)
+        } catch (e) {
+            setIsLoading(false)
+            setIsError('Load Fail')
         }
+    }
+
+    useEffect(() => {
+
         getFunction()
     }, [])
 
