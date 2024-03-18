@@ -1,7 +1,7 @@
 import React from "react";
-import { getDisplayRole } from "../function/role";
+import { getDisplayRole } from "../../function/role";
 import './EmployeeTable.css'
-import { getDisplayRegion } from "../const/department";
+import { getDisplayRegion } from "../../const/department";
 
 export default function EmployeeTable({
     employee

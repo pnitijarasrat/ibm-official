@@ -14,7 +14,7 @@ import PrivateRoute from './Authenticate/PrivateRoute'
 import Register from './Register/Register'
 import LinkTree from './LinkTree/LinkTree'
 import NewLink from './LinkTree/NewLink'
-import AllEmployee from './AdminPage/AllEmployee'
+import AllEmployee from './AdminPage/Employee/AllEmployee'
 
 function App() {
   // getDisplayRole function
