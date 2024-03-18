@@ -26,6 +26,7 @@ export default function Nav() {
                         <ul className="desktop-nav">
                             <Link to={'/'}>Home</Link>
                             <Link to={'/recruit'}>Recruit</Link>
+                            <Link to={'/link-tree'}>All Link</Link>
                             <button onClick={() => auth.logOut()}>Log Out</button>
                             <Link to={`/${localStorage.getItem("site")}`}>
                                 <span className="nav-user">{localStorage.getItem("fullName")}</span>
@@ -52,6 +53,7 @@ export default function Nav() {
                         </Link>
                         <Link to={'/'}>Home</Link>
                         <Link to={'/recruit'}>Recruit</Link>
+                        <Link to={'/link-tree'}>All Link</Link>
                         <button onClick={() => {
                             setIsOpen(false)
                             auth.logOut()

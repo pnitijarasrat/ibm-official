@@ -11,6 +11,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import PrivateRoute from './Authenticate/PrivateRoute'
 import Register from './Register/Register'
+import LinkTree from './LinkTree/LinkTree'
+import NewLink from './LinkTree/NewLink'
 
 function App() {
   // getDisplayRole function
@@ -25,6 +27,8 @@ function App() {
           <Route element={<PrivateRoute />} >
             <Route path='/' element={<Home />} />
             <Route path='/:userId' element={<Personal />} />
+            <Route path='/link-tree' element={<LinkTree />} />
+            <Route path='/new-link' element={<NewLink />} />
             <Route path='/new-recruit' element={<NewRecruitment />} />
             <Route path='/recruit-table' element={<RecruitTable />} />
             <Route path='/new-announcement' element={<NewAnnouncement />} />
