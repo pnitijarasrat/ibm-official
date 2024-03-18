@@ -15,6 +15,7 @@ import Register from './Register/Register'
 import LinkTree from './LinkTree/LinkTree'
 import NewLink from './LinkTree/NewLink'
 import AllEmployee from './AdminPage/Employee/AllEmployee'
+import AllRecruitment from './AdminPage/Recruitment/AllRecruitment'
 
 function App() {
   // getDisplayRole function
@@ -32,6 +33,7 @@ function App() {
               <Route path='/new-link' element={<NewLink />} />
               <Route path='/new-announcement' element={<NewAnnouncement />} />
               <Route path='/admin-all-employee' element={<AllEmployee />} />
+              <Route path='/admin-all-recruitment' element={<AllRecruitment />} />
             </Route>
             <Route path='/' element={<Home />} />
             <Route path='/:userId' element={<Personal />} />

@@ -45,7 +45,10 @@ export default function NewRecruitment() {
     }
 
     const handleAddNewRecruitment = () => {
-        const payload = recruitmentForm.getFieldsValue()
+        const payload = {
+            ...recruitmentForm.getFieldsValue(),
+            status: 'open'
+        }
         addNewRecruitment(payload)
     }
 

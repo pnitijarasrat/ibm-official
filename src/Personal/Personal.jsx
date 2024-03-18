@@ -57,7 +57,7 @@ export default function Personal() {
                     <h2>Admin</h2>
                     <div className="gap">
                         <button onClick={() => navigate('/admin-all-employee')}>All Employee</button>
-                        <button>All Recruitment</button>
+                        <button onClick={() => navigate('/admin-all-recruitment')}>All Recruitment</button>
                         <button>All Announcement</button>
                     </div>
                 </div>

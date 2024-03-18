@@ -5,17 +5,17 @@ import { Tabs } from "antd";
 import TableView from "./TableView";
 import Overview from "./Overview";
 
-export default function AllEmployee() {
-    const [employee, setEmployee] = useState([]);
+export default function AllRecruitment() {
+    const [job, setJob] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     async function fetchData() {
         setIsLoading(true);
         try {
-            const res = await fetch(`${url}account.json`);
+            const res = await fetch(`${url}job.json`);
             const data = await res.json();
-            const employeeArray = data ? dataRemap(data) : [];
-            setEmployee(employeeArray);
+            const jobArray = data ? dataRemap(data) : [];
+            setJob(jobArray);
         } catch (error) {
             console.error(error);
         }
@@ -28,7 +28,7 @@ export default function AllEmployee() {
 
     return (
         <div className="page-container">
-            <h1>Employee</h1>
+            <h1>Job</h1>
             {isLoading ?
                 <div>Loading...</div>
                 :
@@ -38,12 +38,12 @@ export default function AllEmployee() {
                         {
                             label: 'Overview',
                             key: '1',
-                            children: <Overview employee={employee} isLoading={isLoading} />,
+                            children: <Overview job={job} isLoading={isLoading} />,
                         },
                         {
                             label: 'Table View',
                             key: '2',
-                            children: <TableView employee={employee} isLoading={isLoading} />
+                            children: <TableView job={job} isLoading={isLoading} />
                         },
 
                     ]}

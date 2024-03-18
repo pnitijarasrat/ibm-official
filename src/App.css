@@ -50,3 +50,28 @@ button:hover {
     justify-content: space-between;
     align-items: center;
 }
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.styled-table th {
+    background-color: #f2f2f2;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.centered {
+    text-align: center;
+}
