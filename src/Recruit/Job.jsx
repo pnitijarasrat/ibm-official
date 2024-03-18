@@ -94,7 +94,9 @@ export default function Job({
                         <a href={link} target="_blank" rel="noreferrer">
                             <button>JD</button>
                         </a>
-                        <button onClick={() => setIsWriting(true)}>Apply</button>
+                        {!isWriting &&
+                            <button onClick={() => setIsWriting(true)}>Apply</button>
+                        }
                         {isAdmin(user.role) &&
                             <button onClick={deleteJob}>Delete</button>
                         }
@@ -102,7 +104,7 @@ export default function Job({
                     <br />
                     {
                         isWriting &&
-                        <Form layout="vertical" form={cvForm}>
+                        <Form layout="vertical" form={cvForm} style={{ width: '100%' }}>
                             <Form.Item label="Tell me about yourself. (50 letters)" name="cv" rules={[{ required: true }]}>
                                 <Input.TextArea count={{ show: true, max: 50 }} />
                             </Form.Item>
