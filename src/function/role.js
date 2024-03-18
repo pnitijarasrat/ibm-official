@@ -17,8 +17,10 @@ export const getDisplayRole = (role) => {
         case 'admin': return "Admin"
         case 'superAdmin': return "Super Admin"
         case 'areaManager': return "Area Manager"
+        case 'areaAssistManager': return "Area Assist Manager"
         case 'manager': return "Manager"
         case 'assistManager': return "Assist Manager"
         case 'operator': return "Operator"
+        default: return 'Please Report CTO'
     }
 }

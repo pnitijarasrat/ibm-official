@@ -18,6 +18,7 @@ export default function Register() {
 
     const roleOption = [
         { label: 'Area Manager', value: 'areaManager' },
+        { label: 'Area Assist Manager', value: 'areaAssistManager' },
         { label: 'Manager', value: 'manager' },
         { label: 'Assist Manager', value: 'assistManager' },
         { label: 'Operator', value: 'operator' },
