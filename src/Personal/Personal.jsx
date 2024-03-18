@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from '../Authenticate/AuthProvider'
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { url } from "../const/url";
 import { Space, Divider } from "antd";
 import { dataRemap } from "../function/dataRemap";
-import { getDisplayRole } from "../function/role";
+import { getDisplayRole, isAdmin } from "../function/role";
 
 export default function Personal() {
     const [isLoading, setIsLoading] = useState(false)
@@ -13,6 +13,7 @@ export default function Personal() {
 
     const { userId } = useParams()
     const user = useAuth()
+    const navigate = useNavigate()
 
     const getUserData = async () => {
         setIsLoading(true)
@@ -50,6 +51,17 @@ export default function Personal() {
 
     return (
         <div className="page-container">
+            {
+                isAdmin(user.role) &&
+                <div className="admin-panel">
+                    <h2>Admin</h2>
+                    <div className="gap">
+                        <button onClick={() => navigate('/admin-all-employee')}>All Employee</button>
+                        <button>All Recruitment</button>
+                        <button>All Announcement</button>
+                    </div>
+                </div>
+            }
             <h2>Personal Information</h2>
             {
                 isLoading ?

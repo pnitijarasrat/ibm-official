@@ -19,3 +19,15 @@ export const getDisplayDepartment = (department) => {
         case "area": return "Area"
     }
 }
+
+export const getDisplayRegion = (branch) => {
+    if (["5", "6", "7", "11", "29"].includes(branch)) return "Center";
+    if (["2", "9", "13", "18", "19"].includes(branch)) return "East";
+    if (["4", "8", "10", "20", "25"].includes(branch)) return "North";
+    if (["1", "22", "28", "30"].includes(branch)) return "North East";
+    if (["12", "17", "21", "26", "27"].includes(branch)) return "South";
+    if (["15", "23", "14", "16", "3"].includes(branch)) return "West";
+
+    // Handle cases when branch doesn't match any predefined regions
+    return "Unknown";
+};

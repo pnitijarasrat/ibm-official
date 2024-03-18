@@ -43,7 +43,6 @@ export default function Recruit() {
             if (data) {
                 jobArray = dataRemap(data)
             }
-            console.log(jobArray)
             setJob(jobArray.filter((job) => !applied.includes(job.key)))
             setIsLoading(false)
         } catch (e) {
