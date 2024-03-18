@@ -5,6 +5,7 @@ import { url } from "../const/url";
 import { Space, Divider } from "antd";
 import { dataRemap } from "../function/dataRemap";
 import { getDisplayRole, isAdmin } from "../function/role";
+import { getDisplayRegion } from "../const/department";
 
 export default function Personal() {
     const [isLoading, setIsLoading] = useState(false)
@@ -72,6 +73,7 @@ export default function Personal() {
                             <div>Name: {userData.firstName} {userData.lastName}</div>
                             <div>Employee ID: {userData.name}</div>
                             <div>Role: {getDisplayRole(userData.role)}</div>
+                            <div>Region: {getDisplayRegion(userData.branch)}</div>
                             <div>Branch: {userData.branch}</div>
                         </Space>
                         :
