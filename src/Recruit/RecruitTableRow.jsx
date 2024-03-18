@@ -12,7 +12,8 @@ export default function RecruitmentTableRow(
         employeeId,
         employeeName,
         jobId,
-        get
+        get,
+        cv
     }
 ) {
 
@@ -68,6 +69,7 @@ export default function RecruitmentTableRow(
                 <div>Job Title: {jobName}</div>
                 <div>Department: {getDisplayDepartment(department)}</div>
                 <div>Applicant: {employeeId} {employeeName}</div>
+                <div>Message: {cv}</div>
                 <br />
                 <div className="gap">
                     <button onClick={approve}>Approve</button>

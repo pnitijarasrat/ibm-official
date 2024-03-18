@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Row, Col } from "antd"
+import { Row, Col, Form, Input } from "antd"
 import { url } from "../const/url";
 import MessageAPI from '../Message/Message'
 import {
@@ -21,8 +21,10 @@ export default function Job({
 
     const [isDeleting, setIsDeleting] = useState(false)
     const [isApplying, setIsApplying] = useState(false)
+    const [isWriting, setIsWriting] = useState(false)
 
     const user = useAuth()
+    const [cvForm] = Form.useForm()
 
     const { success, error, contextHolder } = MessageAPI()
 
@@ -53,7 +55,8 @@ export default function Job({
             department: department,
             employeeName: localStorage.getItem("fullName"),
             employeeId: localStorage.getItem("user"),
-            status: 'pending'
+            status: 'pending',
+            cv: cvForm.getFieldValue('cv')
         }
         try {
             const res = await fetch(`${url}applyHistory.json`, {
@@ -66,6 +69,7 @@ export default function Job({
             if (res.ok) {
                 setIsApplying(false)
                 success("Apply")
+                await get()
             }
         } catch (e) {
             error("Apply")
@@ -87,11 +91,33 @@ export default function Job({
                     </span>
                     <p className="job-desc">Description: {desc}</p>
                     <div className="gap">
-                        <button onClick={apply}>Apply</button>
+                        <a href={link} target="_blank" rel="noreferrer">
+                            <button>JD</button>
+                        </a>
+                        <button onClick={() => setIsWriting(true)}>Apply</button>
                         {isAdmin(user.role) &&
                             <button onClick={deleteJob}>Delete</button>
                         }
                     </div>
+                    <br />
+                    {
+                        isWriting &&
+                        <Form layout="vertical" form={cvForm}>
+                            <Form.Item label="Tell me about yourself. (50 letters)" name="cv" rules={[{ required: true }]}>
+                                <Input.TextArea count={{ show: true, max: 50 }} />
+                            </Form.Item>
+                            <div className="footer">
+                                <button onClick={(e) => {
+                                    e.preventDefault()
+                                    apply()
+                                }}>Apply</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault()
+                                    setIsWriting(false)
+                                }}>Cancel</button>
+                            </div>
+                        </Form>
+                    }
                 </div>
             </div>
         </>

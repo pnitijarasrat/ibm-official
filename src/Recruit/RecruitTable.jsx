@@ -56,6 +56,7 @@ export default function RecruitTable() {
                                     employeeName={his.employeeName}
                                     jobId={his.jobId}
                                     get={getHistory}
+                                    cv={his.cv}
                                 />
 
                             )) :

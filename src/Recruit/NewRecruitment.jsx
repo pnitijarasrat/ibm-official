@@ -71,9 +71,9 @@ export default function NewRecruitment() {
                     <Form.Item label="Summary Description" name="desc" rules={rule}>
                         <Input />
                     </Form.Item>
-                    {/* <Form.Item label="Apply Link" name="link" rules={rule}>
+                    <Form.Item label="JD Link" name="link" rules={rule}>
                         <Input />
-                    </Form.Item> */}
+                    </Form.Item>
                     <div className="footer">
                         <button>{isAdding && <LoadingOutlined />} Add New Project</button>
                         <button onClick={() => navigate(-1)}>Back</button>
