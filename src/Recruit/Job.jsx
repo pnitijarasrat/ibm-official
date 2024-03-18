@@ -69,8 +69,8 @@ export default function Job({
             if (res.ok) {
                 setIsApplying(false)
                 success("Apply")
-                await get()
             }
+            await get()
         } catch (e) {
             error("Apply")
         }
