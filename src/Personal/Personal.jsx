@@ -12,6 +12,7 @@ export default function Personal() {
     const [history, setHistory] = useState([])
 
     const { userId } = useParams()
+    const user = useAuth()
 
     const getUserData = async () => {
         setIsLoading(true)

@@ -77,12 +77,16 @@ export default function Home() {
                             <div key={a.key}>
                                 <h2>{a.department.toUpperCase()} - {a.title}</h2>
                                 <p>Description: {a.desc}</p>
-                                {a.link &&
-                                    <a href={a.link} target="_blank" rel="noreferrer">
-                                        <button>Click</button>
-                                    </a>}
                                 <p>Announce Time: {a.announcedTime}</p>
-                                {isAdmin(user.role) && <button onClick={() => handleDelete(a.key)}>{isDeleting && <LoadingOutlined />} Delete</button>}
+                                <div className="gap">
+                                    {
+                                        a.link &&
+                                        <a href={a.link} target="_blank" rel="noreferrer">
+                                            <button>Click</button>
+                                        </a>
+                                    }
+                                    {isAdmin(user.role) && <button onClick={() => handleDelete(a.key)}>{isDeleting && <LoadingOutlined />} Delete</button>}
+                                </div>
                                 <Divider />
                             </div>
                         ))

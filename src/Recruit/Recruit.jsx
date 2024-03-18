@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { url } from "../const/url";
 import { useAuth } from '../Authenticate/AuthProvider'
 import { isAdmin } from "../function/role";
-import { Divider } from "antd";
+import { Divider, Select } from "antd";
+import { departmentOptions } from "../const/department";
 
 export default function Recruit() {
     const [job, setJob] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [jobFilter, setJobFilter] = useState('all')
 
     const user = useAuth()
     const navigate = useNavigate()
@@ -41,12 +43,17 @@ export default function Recruit() {
             if (data) {
                 jobArray = dataRemap(data)
             }
+            console.log(jobArray)
             setJob(jobArray.filter((job) => !applied.includes(job.key)))
             setIsLoading(false)
         } catch (e) {
             setIsLoading(false)
             console.log(e)
         }
+    }
+
+    const onFilterChange = (value) => {
+        setJobFilter(value)
     }
 
     useEffect(() => {
@@ -66,23 +73,31 @@ export default function Recruit() {
                         </div>
                     </div>
                 }
-                <h1>Currently Recruit</h1>
+                <div className="header-with-button">
+                    <h1>Currently Recruit</h1>
+                    <Select
+                        options={[{ label: 'All Department', value: 'all' }, ...departmentOptions]}
+                        defaultValue={"All Department"}
+                        onChange={onFilterChange}
+                    />
+                </div>
                 <Divider />
                 {
                     !isLoading ?
                         job.length !== 0 ?
-                            (job.map((job) => (
-                                <Job
-                                    id={job.key}
-                                    key={job.key}
-                                    name={job.name}
-                                    desc={job.desc}
-                                    period={job.period}
-                                    department={job.department}
-                                    get={getJob}
-                                    link={job.link}
-                                />
-                            ))) :
+                            (jobFilter === 'all' ? job : job.filter((j) => (j.department === jobFilter)))
+                                .map((job) => (
+                                    <Job
+                                        id={job.key}
+                                        key={job.key}
+                                        name={job.name}
+                                        desc={job.desc}
+                                        period={job.period}
+                                        department={job.department}
+                                        get={getJob}
+                                        link={job.link}
+                                    />
+                                )) :
                             <div>
                                 <div>
                                     No Job Available.

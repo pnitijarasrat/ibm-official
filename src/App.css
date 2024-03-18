@@ -11,6 +11,7 @@
 
 button {
     border: 1px solid black;
+    border-radius: 5px;
     padding: 8px 16px;
     background-color: white;
     transition: 0.2s;
@@ -20,6 +21,7 @@ button:hover {
     background-color: black;
     color: white;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .error-text {
@@ -40,5 +42,11 @@ button:hover {
 .gap {
     display: flex;
     gap: 16px;
+    align-items: center;
+}
+
+.header-with-button {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
