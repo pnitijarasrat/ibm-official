@@ -28,6 +28,8 @@ export default function TableView({
             {renderTable("Opening", (job) => job.status === 'open')}
             <Divider />
             {renderTable("Closed", (job) => job.status === 'close')}
+            <Divider />
+            {renderTable("Done", (job) => job.status === 'done')}
         </>
     )
 }

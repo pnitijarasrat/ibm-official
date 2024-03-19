@@ -1,7 +1,7 @@
 import React from "react";
 import EmployeeTable from "./EmployeeTable";
 import { isAdmin } from "../../function/role";
-import { Divider } from "antd";
+import { Divider, Tabs } from "antd";
 
 export default function TableView({
     employee,
@@ -23,11 +23,20 @@ export default function TableView({
         );
     };
 
+    const items = [
+        {
+            key: '1',
+            label: 'Admin',
+            children: renderEmployeeTable("Admin", (em) => isAdmin(em.role))
+        },
+        {
+            key: '2',
+            label: 'Employee',
+            children: renderEmployeeTable("Employee", (em) => !isAdmin(em.role))
+        },
+    ]
+
     return (
-        <>
-            {renderEmployeeTable("Admin", (em) => isAdmin(em.role))}
-            <Divider />
-            {renderEmployeeTable("Employee", (em) => !isAdmin(em.role))}
-        </>
+        <Tabs defaultActiveKey="1" items={items} />
     )
 }

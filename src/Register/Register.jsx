@@ -47,7 +47,8 @@ export default function Register() {
             role: registerData.position,
             firstName: registerData.firstName,
             lastName: registerData.lastName,
-            branch: registerData.branch
+            branch: registerData.branch,
+            score: 0
         }
         if (account.includes(registerData.username)) return setIsError("This username is taken.")
         if (registerData.password !== registerData.confirmPassword) return setIsError('Password and Confirm Password do not match.')

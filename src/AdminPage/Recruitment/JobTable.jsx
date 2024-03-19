@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { getDisplayRole } from "../../function/role";
-import { getDisplayDepartment, getDisplayRegion } from "../../const/department";
+import { getDisplayDepartment } from "../../const/department";
 import { Popover, Space } from "antd";
 import { url } from '../../const/url'
-import { redirect } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export default function JobTable({
     job,
@@ -12,6 +10,8 @@ export default function JobTable({
 }) {
 
     const [isDeleting, setIsDeleting] = useState(false)
+
+    const navigate = useNavigate()
 
     const deleteJob = async (id) => {
         setIsDeleting(true)
@@ -84,6 +84,7 @@ export default function JobTable({
                                             <button onClick={() => updateJob(j)}>
                                                 {j.status !== 'open' ? 'Open' : 'Close'}
                                             </button>
+                                            <button onClick={() => navigate(`/recruit/${j.key}`)}>View</button>
                                             <button onClick={() => deleteJob(j.key)}>Delete</button>
                                         </Space>}
                                         title="Action" trigger="click" >

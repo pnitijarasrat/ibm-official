@@ -22,7 +22,6 @@ export default function NewRecruitment() {
 
     if (!isAdmin(user.role)) return <Navigate to={'/'} />
 
-    // Handle add function
     const addNewRecruitment = async (newRecruitment) => {
         setIsAdding(true)
         try {
@@ -47,9 +46,14 @@ export default function NewRecruitment() {
     const handleAddNewRecruitment = () => {
         const payload = {
             ...recruitmentForm.getFieldsValue(),
-            status: 'open'
+            status: 'open',
+            owner: {
+                id: localStorage.getItem("user"),
+                name: localStorage.getItem("fullName")
+            }
         }
         addNewRecruitment(payload)
+        // console.log(payload)
     }
 
     return (
