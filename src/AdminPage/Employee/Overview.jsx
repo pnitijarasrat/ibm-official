@@ -7,7 +7,7 @@ export default function Overview({ employee }) {
 
     const renderStatistic = (title, filterFn) => {
         return (
-            <Col span={4}>
+            <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <Statistic title={title} value={employee.filter(filterFn).length} />
             </Col>
         );
@@ -17,24 +17,24 @@ export default function Overview({ employee }) {
         <div>
             <h2>By Role</h2>
             <Row gutter={16}>
-                <Col span={8}>
+                <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Card>
                         <Statistic title="Total" value={employee.length} />
                     </Card>
                 </Col>
-                <Col span={8}>
+                <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Card>
                         <Statistic title="Admin" value={employee.filter((em) => isAdmin(em.role)).length} />
                     </Card>
                 </Col>
-                <Col span={8}>
+                <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Card>
                         <Statistic title="Employee" value={employee.filter((em) => !isAdmin(em.role)).length} />
                     </Card>
                 </Col>
             </Row>
             <br />
-            <h2>All Employee (not include Super Admin)</h2>
+            <h2>All Employee (not including Super Admin)</h2>
             <Card>
                 <Row gutter={16}>
                     {renderStatistic("North", (em) => getDisplayRegion(em.branch) === 'North')}

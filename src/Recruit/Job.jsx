@@ -97,9 +97,9 @@ export default function Job({
                         {!isWriting &&
                             <button onClick={() => setIsWriting(true)}>Apply</button>
                         }
-                        {isAdmin(user.role) &&
+                        {/* {isAdmin(user.role) &&
                             <button onClick={deleteJob}>Delete</button>
-                        }
+                        } */}
                     </div>
                     <br />
                     {

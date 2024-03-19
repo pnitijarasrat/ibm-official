@@ -1,4 +1,5 @@
 export const isAdmin = (role) => (["admin", "superAdmin"].includes(role))
+export const isManager = (role) => (["admin", "superAdmin", "areaManager", "areaAssistManager", "manager"].includes(role))
 
 // Not Finish
 export const roleOption = [

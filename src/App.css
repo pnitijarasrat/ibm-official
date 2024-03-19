@@ -25,6 +25,13 @@ button:hover {
     border-radius: 5px;
 }
 
+button[disabled] {
+    background-color: #ccc;
+    color: #999;
+    cursor: not-allowed;
+    border: 1px solid #999;
+}
+
 .error-text {
     color: red;
 }
@@ -76,4 +83,13 @@ button:hover {
 
 .centered {
     text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+
+    .styled-table th,
+    .styled-table td {
+        padding: 6px;
+        /* Adjust padding for smaller screens */
+    }
 }

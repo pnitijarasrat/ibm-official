@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isAdmin } from '../function/role'
+import { isAdmin, isManager } from '../function/role'
 import { useAuth } from '../Authenticate/AuthProvider'
 import { url } from "../const/url";
 import { dataRemap } from "../function/dataRemap";
@@ -10,6 +10,7 @@ import LinkRow from "./LinkRow";
 export default function LinkTree() {
     const [isLoading, setIsLoading] = useState(false)
     const [adminLink, setAdminLink] = useState([])
+    const [managerLink, setManagerLink] = useState([])
     const [regLink, setRegLink] = useState([])
 
     const navigate = useNavigate()
@@ -25,6 +26,7 @@ export default function LinkTree() {
                 linkArray = dataRemap(data)
             }
             setAdminLink(linkArray.filter((l) => (l.confidentialLevel === 'admin')))
+            setManagerLink(linkArray.filter((l) => (l.confidentialLevel === 'manager')))
             setRegLink(linkArray.filter((l) => (l.confidentialLevel === 'regular')))
             setIsLoading(false)
         } catch (e) {
@@ -60,6 +62,30 @@ export default function LinkTree() {
                                     <div>Loading...</div>
                                 ) : adminLink.length !== 0 ? (
                                     adminLink.map((l) => (
+                                        <LinkRow
+                                            key={l.key}
+                                            id={l.key}
+                                            title={l.title}
+                                            link={l.link}
+                                        />
+                                    ))
+                                ) : (
+                                    <div>No Link</div>
+                                )}
+                            </div>
+                            <Divider />
+                        </>
+                    )
+                }
+                {
+                    isManager(user.role) && (
+                        <>
+                            <div>
+                                <h2>Manager</h2>
+                                {isLoading ? (
+                                    <div>Loading...</div>
+                                ) : managerLink.length !== 0 ? (
+                                    managerLink.map((l) => (
                                         <LinkRow
                                             key={l.key}
                                             id={l.key}
