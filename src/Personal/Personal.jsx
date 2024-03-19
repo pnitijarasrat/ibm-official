@@ -11,6 +11,7 @@ export default function Personal() {
     const [isLoading, setIsLoading] = useState(false)
     const [userData, setUserData] = useState(null)
     const [history, setHistory] = useState([])
+    const [currentJob, setCurrentJob] = useState([])
 
     const { userId } = useParams()
     const user = useAuth()
@@ -20,7 +21,11 @@ export default function Personal() {
         setIsLoading(true)
         try {
             const res = await fetch(`${url}/account/${userId}.json`)
+            const jobRes = await fetch(`${url}/job.json`)
             const data = await res.json()
+            const jobData = await jobRes.json()
+            const jobArray = jobData ? dataRemap(jobData) : []
+            setCurrentJob(jobArray.map((job) => (job.key)))
             setUserData(data)
             await getHistory(data)
             setIsLoading(false)
@@ -45,6 +50,29 @@ export default function Personal() {
             setIsLoading(false)
         }
     }
+
+    const ProjectList = ({ projects }) => (
+        <Space direction="vertical">
+            {projects.map((project) => (
+                <div key={project.key}>
+                    <div>Project Name: {project.jobName} {currentJob.includes(project.jobId) ? "" : "[This project has been deleted.]"}</div>
+                </div>
+            ))}
+        </Space>
+    );
+
+    const StatusSection = ({ title, status, projects }) => (
+        <div>
+            <h2>{title} [{projects.filter((project) => project.status === status).length}]</h2>
+            {projects.filter((project) => project.status === status).length !== 0 ? (
+                <ProjectList projects={projects.filter((project) => project.status === status)} />
+            ) : (
+                <div>No {status} projects</div>
+            )}
+            <Divider />
+        </div>
+    );
+
 
     useEffect(() => {
         getUserData()
@@ -83,42 +111,8 @@ export default function Personal() {
                         <div>No Data</div>
             }
             <Divider />
-            <h2>Pending Request [{history.filter((his) => (his.status === 'pending')).length}]</h2>
-            {
-                isLoading ?
-                    <div>Loading...</div>
-                    :
-                    history.filter((his) => (his.status === 'pending')).length !== 0 ?
-                        <Space direction="vertical">
-                            {
-                                history.map((his) => (
-                                    <div key={his.key}>
-                                        <div>Project Name: {his.jobName}</div>
-                                    </div>
-                                ))
-                            }
-                        </Space> :
-                        <div>No pending request</div>
-            }
-            <Divider />
-            <h2>Approved Request [{history.filter((his) => (his.status === 'approve')).length}]</h2>
-            {
-                isLoading ?
-                    <div>Loading...</div>
-                    :
-                    history.filter((his) => (his.status === 'approve')).length !== 0 ?
-                        <Space direction="vertical">
-                            {
-                                history.map((his) => (
-                                    <div key={his.key}>
-                                        <div>Project Name: {his.jobName}</div>
-                                    </div>
-                                ))
-                            }
-                        </Space> :
-                        <div>No approved project</div>
-            }
-            <Divider />
+            <StatusSection title="Pending Request" status="pending" projects={history} />
+            <StatusSection title="Approved Request" status="approve" projects={history} />
         </div>
     )
 }
