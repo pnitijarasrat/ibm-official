@@ -76,6 +76,8 @@ export default function Personal() {
                             <div>Role: {getDisplayRole(userData.role)}</div>
                             <div>Region: {getDisplayRegion(userData.branch)}</div>
                             <div>Branch: {userData.branch}</div>
+                            <div>Score: {userData.score ? userData.score : isAdmin(user.role) ? '---' : 'Please report CTO'}</div>
+                            <div><button onClick={() => navigate('/leaderboard')}>View Leaderboard</button></div>
                         </Space>
                         :
                         <div>No Data</div>

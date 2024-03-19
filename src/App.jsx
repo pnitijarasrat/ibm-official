@@ -17,6 +17,7 @@ import NewLink from './LinkTree/NewLink'
 import AllEmployee from './AdminPage/Employee/AllEmployee'
 import AllRecruitment from './AdminPage/Recruitment/AllRecruitment'
 import JobDesc from './AdminPage/Recruitment/JobDesc'
+import Leaderboard from './Personal/Leaderboard'
 
 function App() {
   // getDisplayRole function
@@ -38,6 +39,7 @@ function App() {
             </Route>
             <Route path='/' element={<Home />} />
             <Route path='/:userId' element={<Personal />} />
+            <Route path='/leaderboard' element={<Leaderboard />} />
             <Route path='/link-tree' element={<LinkTree />} />
             <Route path='/recruit-table' element={<RecruitTable />} />
             <Route path='/recruit' element={<Recruit />} />

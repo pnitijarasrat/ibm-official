@@ -3,6 +3,7 @@
 
 * {
     font-family: "Courier Prime", monospace;
+    color: #555;
 }
 
 .page-container {
@@ -16,6 +17,7 @@ button {
     padding: 8px 16px;
     background-color: white;
     transition: 0.2s;
+    font-weight: bold;
 }
 
 button:hover {
