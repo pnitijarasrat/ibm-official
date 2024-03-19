@@ -7,7 +7,7 @@ export default function Overview({ job }) {
 
     const renderStatistic = (title, filterFn) => {
         return (
-            <Col span={4}>
+            <Col xs={24} sm={12} md={8} lg={6} xl={4}>
                 <Statistic title={title} value={job.filter(filterFn).length} />
             </Col>
         );
@@ -17,17 +17,17 @@ export default function Overview({ job }) {
         <div>
             <h2>Total Recruitment</h2>
             <Row gutter={16}>
-                <Col span={8}>
+                <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Card>
                         <Statistic title="Total" value={job.length} />
                     </Card>
                 </Col>
-                <Col span={8}>
+                <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Card>
                         <Statistic title="Opening" value={job.filter((job) => job.status === 'open').length} />
                     </Card>
                 </Col>
-                <Col span={8}>
+                <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Card>
                         <Statistic title="Closed" value={job.filter((job) => job.status === 'close').length} />
                     </Card>

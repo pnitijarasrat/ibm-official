@@ -1,10 +1,11 @@
 import React from "react";
 import JobTable from "./JobTable";
-import { Divider } from "antd";
+import { Divider, } from "antd";
 
 export default function TableView({
     job,
-    isLoading
+    isLoading,
+    get
 }) {
 
     const renderTable = (title, filterFn) => {
@@ -14,9 +15,9 @@ export default function TableView({
                 {isLoading ? (
                     <div>Loading...</div>
                 ) : job.length === 0 ? (
-                    <div>No Employee</div>
+                    <div>No Recruitment</div>
                 ) : (
-                    <JobTable job={job.filter(filterFn)} />
+                    <JobTable job={job.filter(filterFn)} get={get} />
                 )}
             </div>
         );

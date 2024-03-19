@@ -43,7 +43,7 @@ export default function AllRecruitment() {
                         {
                             label: 'Table View',
                             key: '2',
-                            children: <TableView job={job} isLoading={isLoading} />
+                            children: <TableView job={job} isLoading={isLoading} get={fetchData} />
                         },
 
                     ]}

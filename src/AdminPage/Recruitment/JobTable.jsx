@@ -1,10 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { getDisplayRole } from "../../function/role";
 import { getDisplayDepartment, getDisplayRegion } from "../../const/department";
+import { Popover, Space } from "antd";
+import { url } from '../../const/url'
+import { redirect } from "react-router-dom";
+
 
 export default function JobTable({
-    job
+    job,
+    get
 }) {
+
+    const [isDeleting, setIsDeleting] = useState(false)
+
+    const deleteJob = async (id) => {
+        setIsDeleting(true)
+        try {
+            const res = await fetch(`${url}job/${id}.json`, {
+                method: 'DELETE',
+                body: JSON.stringify(id),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (res.ok) {
+                setIsDeleting(false)
+            }
+            await get()
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const updateJob = async (job) => {
+        setIsDeleting(true)
+        try {
+            const res = await fetch(`${url}job/${job.key}.json`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    ...job,
+                    status: job.status === 'open' ? 'close' : 'open'
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (res.ok) {
+                setIsDeleting(false)
+            }
+            await get()
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     return (
         <table className="styled-table">
@@ -19,7 +67,7 @@ export default function JobTable({
                     <th>Name</th>
                     <th>Department</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +78,18 @@ export default function JobTable({
                                 <td>{j.name}</td>
                                 <td>{getDisplayDepartment(j.department)}</td>
                                 <td>{j.status}</td>
-                                <td>Action</td>
+                                <td>
+                                    <Popover content={
+                                        <Space>
+                                            <button onClick={() => updateJob(j)}>
+                                                {j.status !== 'open' ? 'Open' : 'Close'}
+                                            </button>
+                                            <button onClick={() => deleteJob(j.key)}>Delete</button>
+                                        </Space>}
+                                        title="Action" trigger="click" >
+                                        <button>Action</button>
+                                    </Popover>
+                                </td>
                             </tr>
                         ))
                         :
