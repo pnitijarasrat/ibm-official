@@ -75,8 +75,9 @@ export default function Recruit() {
                         </div>
                     </div>
                 }
-                <div className="header-with-button">
-                    <h1>Currently Recruit</h1>
+                <h1>Currently Recruit</h1>
+                <div>
+                    Filter:{" "}
                     <Select
                         options={[{ label: 'All Department', value: 'all' }, ...departmentOptions]}
                         defaultValue={"All Department"}

@@ -39,6 +39,7 @@ button[disabled] {
 .admin-panel {
     border: 2px solid #333;
     padding: 16px 24px;
+    margin-bottom: 32px;
 }
 
 .footer {
@@ -92,4 +93,17 @@ button[disabled] {
         padding: 6px;
         /* Adjust padding for smaller screens */
     }
+}
+
+h1 {
+    color: white;
+    background-color: black;
+    padding: 8px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    margin: 0;
 }
