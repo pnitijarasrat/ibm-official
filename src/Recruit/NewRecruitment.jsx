@@ -46,14 +46,13 @@ export default function NewRecruitment() {
     const handleAddNewRecruitment = () => {
         const payload = {
             ...recruitmentForm.getFieldsValue(),
-            status: 'open',
+            status: 'pending',
             owner: {
                 id: localStorage.getItem("user"),
                 name: localStorage.getItem("fullName")
             }
         }
         addNewRecruitment(payload)
-        // console.log(payload)
     }
 
     return (
@@ -63,7 +62,7 @@ export default function NewRecruitment() {
                 <h1>New Project</h1>
                 <Form
                     form={recruitmentForm}
-                    labelCol={{ span: 4 }}
+                    labelCol={{ span: 6 }}
                     onFinish={handleAddNewRecruitment}
                 >
                     <Form.Item label="Project Name" name="name" rules={rule}>
@@ -78,7 +77,13 @@ export default function NewRecruitment() {
                     <Form.Item label="Summary Description" name="desc" rules={rule}>
                         <Input />
                     </Form.Item>
+                    <Form.Item label="Member Required" name="memberRequired" rules={rule}>
+                        <Input />
+                    </Form.Item>
                     <Form.Item label="JD Link" name="link" rules={rule}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item label="Line Group Link" name="lineLink" rules={rule}>
                         <Input />
                     </Form.Item>
                     <div className="footer">

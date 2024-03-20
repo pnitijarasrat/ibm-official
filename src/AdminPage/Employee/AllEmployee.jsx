@@ -35,17 +35,17 @@ export default function AllEmployee() {
                 <Tabs
                     defaultActiveKey="1"
                     items={[
-                        {
-                            label: 'Overview',
-                            key: '1',
-                            children: <Overview employee={employee} isLoading={isLoading} />,
-                        },
+
                         {
                             label: 'Table View',
-                            key: '2',
+                            key: '1',
                             children: <TableView employee={employee} isLoading={isLoading} />
                         },
-
+                        {
+                            label: 'Overview',
+                            key: '2',
+                            children: <Overview employee={employee} isLoading={isLoading} />,
+                        },
                     ]}
                 />
             }

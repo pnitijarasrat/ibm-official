@@ -32,14 +32,14 @@ export default function JobTable({
         }
     }
 
-    const updateJob = async (job) => {
+    const updateJob = async (job, newStatus) => {
         setIsDeleting(true)
         try {
             const res = await fetch(`${url}job/${job.key}.json`, {
                 method: 'PATCH',
                 body: JSON.stringify({
                     ...job,
-                    status: job.status === 'open' ? 'close' : 'open'
+                    status: newStatus
                 }),
                 headers: {
                     'Content-Type': 'application/json'
@@ -79,17 +79,22 @@ export default function JobTable({
                                 <td>{getDisplayDepartment(j.department)}</td>
                                 <td>{j.status}</td>
                                 <td>
-                                    <Popover content={
-                                        <Space>
-                                            <button onClick={() => updateJob(j)}>
-                                                {j.status !== 'open' ? 'Open' : 'Close'}
-                                            </button>
-                                            <button onClick={() => navigate(`/recruit/${j.key}`)}>View</button>
-                                            <button onClick={() => deleteJob(j.key)}>Delete</button>
-                                        </Space>}
-                                        title="Action" trigger="click" >
-                                        <button>Action</button>
-                                    </Popover>
+                                    {
+                                        j.status === 'pending' ?
+                                            <button onClick={() => updateJob(j, "open")}>Approve</button>
+                                            :
+                                            <Popover content={
+                                                <Space>
+                                                    <button onClick={() => updateJob(j, j.status !== 'open' ? 'open' : 'close')}>
+                                                        {j.status !== 'open' ? 'Open' : 'Close'}
+                                                    </button>
+                                                    <button onClick={() => navigate(`/recruit/${j.key}`)}>View</button>
+                                                    <button onClick={() => deleteJob(j.key)}>Delete</button>
+                                                </Space>}
+                                                title="Action" trigger="click" >
+                                                <button>Action</button>
+                                            </Popover>
+                                    }
                                 </td>
                             </tr>
                         ))

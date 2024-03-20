@@ -71,7 +71,7 @@ export default function Recruit() {
                         <h2>Admin</h2>
                         <div className="gap">
                             <button onClick={() => navigate('/new-recruit')}>New Recruitment</button>
-                            <button onClick={() => navigate('/recruit-table')}>Recruitment Progress</button>
+                            {/* <button onClick={() => navigate('/recruit-table')}>Recruitment Progress</button> */}
                         </div>
                     </div>
                 }

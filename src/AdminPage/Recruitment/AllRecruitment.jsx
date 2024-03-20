@@ -35,15 +35,16 @@ export default function AllRecruitment() {
                 <Tabs
                     defaultActiveKey="1"
                     items={[
-                        {
-                            label: 'Overview',
-                            key: '1',
-                            children: <Overview job={job} isLoading={isLoading} />,
-                        },
+
                         {
                             label: 'Table View',
-                            key: '2',
+                            key: '1',
                             children: <TableView job={job} isLoading={isLoading} get={fetchData} />
+                        },
+                        {
+                            label: 'Overview',
+                            key: '2',
+                            children: <Overview job={job} isLoading={isLoading} />,
                         },
 
                     ]}

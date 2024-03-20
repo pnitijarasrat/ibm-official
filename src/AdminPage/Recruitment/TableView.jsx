@@ -25,11 +25,13 @@ export default function TableView({
 
     return (
         <>
+            {renderTable("Pending For HR", (job) => job.status === 'pending')}
+            <Divider />
             {renderTable("Opening", (job) => job.status === 'open')}
             <Divider />
             {renderTable("Closed", (job) => job.status === 'close')}
             <Divider />
-            {renderTable("Done", (job) => job.status === 'done')}
+            {renderTable("Archived", (job) => job.status === 'done')}
         </>
     )
 }

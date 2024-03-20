@@ -25,7 +25,8 @@ export default function Leaderboard() {
         } catch (error) {
             console.error(error);
         }
-        setIsLoading(false);
+  setIsLoading(false);
+
     }
 
     const getCurrentRank = () => {
