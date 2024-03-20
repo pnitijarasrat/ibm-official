@@ -34,6 +34,27 @@ export default function Personal() {
     }
   }
 
+  const updateProject = async (projectCounted) => {
+    setIsLoading(true)
+    try {
+      const res = await fetch(`${url}/account/${userId}.json`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          ...userData,
+          project: projectCounted
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      if (res.ok) {
+        setIsLoading(false)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const getHistory = async (employee) => {
     setIsLoading(true)
     try {
@@ -106,8 +127,9 @@ export default function Personal() {
               <div>Role: {getDisplayRole(userData.role)}</div>
               <div>Region: {getDisplayRegion(userData.branch)}</div>
               <div>Branch: {userData.branch}</div>
-              <div>Project: {history.filter((his) => (his.status === 'approve')).length}</div>
+              <div>All Approved Project: {history.filter((his) => (his.status === 'approve')).length}</div>
               <div>Score: {userData.score ? userData.score : isAdmin(user.role) ? '---' : 'Please report CTO'}</div>
+              <div><button onClick={() => updateProject(history.filter((his) => (his.status === 'approve')).length)}>Sync Change</button></div>
               <div><button onClick={() => navigate('/leaderboard')}>View Leaderboard</button></div>
             </Space>
             :
