@@ -128,34 +128,37 @@ export default function JobDesc(
       <Divider />
       <Space direction="vertical" style={{ width: '100%' }}>
         <h2>Pending Request</h2>
-        {
-          !isLoading ?
-            pending.length !== 0 ?
-              pending.map((pend) => (
-                <Row key={pend.key} gutter={16} align="middle">
-                  <Col span={12}>
-                    <Space direction="vertical">
-                      <div>
-                        {pend.employeeId} - {pend.employeeName}
-                      </div>
-                      <div>
-                        Message: {pend.cv}
-                      </div>
-                    </Space>
-                  </Col>
-                  <Col span={12}>
-                    <div className="gap">
-                      <button onClick={() => approve(pend)}>Approve</button>
-                      <button onClick={() => decline(pend)}>Delete</button>
-                    </div>
-                  </Col>
-                </Row>
-              ))
+        <Space direction="vertical">
+          {
+            !isLoading ?
+              pending.length !== 0 ?
+                pending.map((pend) => (
+                  <>
+                    <Row key={pend.key} gutter={16} align="middle">
+                      <Col span={12}>
+                        <div>
+                          {pend.employeeId} - {pend.employeeName}
+                        </div>
+                        <div>
+                          Message: {pend.cv}
+                        </div>
+                      </Col>
+                      <Col span={12}>
+                        <div className="gap">
+                          <button onClick={() => approve(pend)}>Approve</button>
+                          <button onClick={() => decline(pend)}>Delete</button>
+                        </div>
+                      </Col>
+                    </Row>
+                    <Divider />
+                  </>
+                ))
+                :
+                <div>No Member</div>
               :
-              <div>No Member</div>
-            :
-            <div>Loading...</div>
-        }
+              <div>Loading...</div>
+          }
+        </Space>
       </Space>
     </div>
   )
