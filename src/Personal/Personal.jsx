@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from '../Authenticate/AuthProvider'
 import { useNavigate, useParams } from "react-router-dom";
 import { url } from "../const/url";
-import { Space, Divider } from "antd";
+import { Space, Divider, QRCode } from "antd";
 import { dataRemap } from "../function/dataRemap";
 import { getDisplayRole, isAdmin } from "../function/role";
 import { getDisplayRegion } from "../const/department";
@@ -75,11 +75,17 @@ export default function Personal() {
   const ProjectList = ({ projects }) => (
     <Space direction="vertical">
       {projects.map((project) => (
-        <div key={project.key}>
-          <div>Project Name: {project.jobName}
-            {currentJob.includes(project.jobId) ? "" : "[This project has been deleted.]"}
+        <>
+          <div key={project.key}>
+            <div>Project Name: {project.jobName}
+              {currentJob.includes(project.jobId) ? "" : "[This project has been deleted.]"}
+            </div>
+            <div>
+              Line Group: {project.lineLink !== '-' ? <QRCode value={project.lineLink} /> : "No Line Group Link"}
+            </div>
           </div>
-        </div>
+          <Divider />
+        </>
       ))}
     </Space>
   );
