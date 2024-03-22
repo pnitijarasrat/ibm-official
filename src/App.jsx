@@ -18,6 +18,8 @@ import AllEmployee from './AdminPage/Employee/AllEmployee'
 import AllRecruitment from './AdminPage/Recruitment/AllRecruitment'
 import JobDesc from './AdminPage/Recruitment/JobDesc'
 import Leaderboard from './Personal/Leaderboard'
+import Learning from './Learning/Learning'
+import NewLearn from './Learning/NewLearning'
 
 function App() {
   // getDisplayRole function
@@ -36,6 +38,7 @@ function App() {
               <Route path='/new-announcement' element={<NewAnnouncement />} />
               <Route path='/admin-all-employee' element={<AllEmployee />} />
               <Route path='/admin-all-recruitment' element={<AllRecruitment />} />
+              <Route path='/new-learn' element={<NewLearn />} />
             </Route>
             <Route path='/' element={<Home />} />
             <Route path='/:userId' element={<Personal />} />
@@ -44,6 +47,7 @@ function App() {
             <Route path='/recruit-table' element={<RecruitTable />} />
             <Route path='/recruit' element={<Recruit />} />
             <Route path='/recruit/:jobId' element={<JobDesc />} />
+            <Route path='/learning' element={<Learning />} />
           </Route>
         </Routes>
       </AuthProvider>

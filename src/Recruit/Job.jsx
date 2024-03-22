@@ -110,8 +110,8 @@ export default function Job({
           {
             isWriting &&
             <Form layout="vertical" form={cvForm} style={{ width: '100%' }}>
-              <Form.Item label="Tell me about yourself. (50 letters)" name="cv" rules={[{ required: true }]}>
-                <Input.TextArea count={{ show: true, max: 50 }} />
+              <Form.Item label="Tell me about yourself. (200 letters)" name="cv" rules={[{ required: true }]}>
+                <Input.TextArea count={{ show: true, max: 200 }} />
               </Form.Item>
               <div className="footer">
                 <button onClick={(e) => {
