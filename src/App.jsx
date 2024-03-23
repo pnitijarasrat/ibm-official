@@ -22,7 +22,6 @@ import Learning from './Learning/Learning'
 import NewLearn from './Learning/NewLearning'
 
 function App() {
-  // getDisplayRole function
 
   return (
     <BrowserRouter>

@@ -36,7 +36,7 @@ export default function EmployeeTable({
             <th>Role</th>
             <th>Region</th>
             <th className="centered">Branch Number</th>
-            <th>Project Count</th>
+            <th>Score</th>
             <th></th>
           </tr>
         </thead>
@@ -48,7 +48,7 @@ export default function EmployeeTable({
               <td>{getDisplayRole(em.role)}</td>
               <td>{getDisplayRegion(em.branch)}</td>
               <td>{em.branch}</td>
-              <td>{em.project ? em.project.length : 0}</td>
+              <td>{em.score ? em.score : 0}</td>
               <td>
                 <button onClick={() => navigate(`/${em.key}`)}>View</button>
               </td>
