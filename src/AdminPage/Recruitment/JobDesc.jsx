@@ -25,6 +25,7 @@ export default function JobDesc(
       setIsLoading(false)
     }
   }
+
   const decline = async (job) => {
     try {
       const res = await fetch(`${url}applyHistory/${job.key}.json`, {
@@ -43,7 +44,6 @@ export default function JobDesc(
   }
 
   const approve = async (job) => {
-    // console.log(job)
     const payload = {
       ...job,
       status: 'approve'

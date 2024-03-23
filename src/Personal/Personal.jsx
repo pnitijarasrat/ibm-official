@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from '../Authenticate/AuthProvider'
 import { useNavigate, useParams } from "react-router-dom";
 import { url } from "../const/url";
-import { Space, Divider, QRCode } from "antd";
+import { Space, Divider, QRCode, Flex } from "antd";
 import { dataRemap } from "../function/dataRemap";
 import { getDisplayRole, isAdmin } from "../function/role";
 import { getDisplayRegion } from "../const/department";
@@ -25,7 +25,7 @@ export default function Personal() {
       const data = await res.json()
       const jobData = await jobRes.json()
       const jobArray = jobData ? dataRemap(jobData) : []
-      setCurrentJob(jobArray.map((job) => (job.key)))
+      setCurrentJob(jobArray)
       setUserData(data)
       await getHistory(data)
       setIsLoading(false)
@@ -73,21 +73,35 @@ export default function Personal() {
   }
 
   const ProjectList = ({ projects }) => (
-    <Space direction="vertical">
+    <Flex gap="middle">
       {projects.map((project) => (
         <>
-          <div key={project.key}>
+          <Space key={project.key} direction="vertical" style={{ width: '100%' }}>
             <div>Project Name: {project.jobName}
-              {currentJob.includes(project.jobId) ? "" : "[This project has been deleted.]"}
+              {/* {currentJob.includes(project.jobId) ? "" : " [This project has been deleted.]"} */}
             </div>
             <div>
-              Line Group: {project.lineLink !== '-' ? <QRCode value={project.lineLink} /> : "No Line Group Link"}
+              Line Group: {project.lineLink}
             </div>
-          </div>
-          <Divider />
+            <div>
+              {
+                currentJob
+                  .filter((job) => (job.key === project.jobId))[0]
+                  .lineLink !== '-' ?
+                  <QRCode
+                    value={currentJob
+                      .filter((job) => (job.key === project.jobId))[0]
+                      .lineLink}
+                  />
+                  :
+                  <div>No line link</div>
+              }
+            </div>
+            <div>Score: {project.score ? project.score : 'Uncalibrated'}</div>
+          </Space>
         </>
       ))}
-    </Space>
+    </Flex>
   );
 
   const StatusSection = ({ title, status, projects }) => (
@@ -135,7 +149,7 @@ export default function Personal() {
               <div>Branch: {userData.branch}</div>
               <div>All Approved Project: {history.filter((his) => (his.status === 'approve')).length}</div>
               <div>Score: {userData.score || 0}</div>
-              <div><button onClick={() => updateProject(history.filter((his) => (his.status === 'approve')).length)}>Sync Change</button></div>
+              {/* <div><button onClick={() => updateProject(history.filter((his) => (his.status === 'approve')).length)}>Sync Change</button></div> */}
               <div><button onClick={() => navigate('/leaderboard')}>View Leaderboard</button></div>
             </Space>
             :
