@@ -80,24 +80,27 @@ export default function Personal() {
             <div>Project Name: {project.jobName}
               {/* {currentJob.includes(project.jobId) ? "" : " [This project has been deleted.]"} */}
             </div>
-            <div>
-              Line Group: {project.lineLink}
-            </div>
-            <div>
-              {
-                currentJob
-                  .filter((job) => (job.key === project.jobId))[0]
-                  .lineLink !== '-' ?
-                  <QRCode
-                    value={currentJob
+            {project.status === 'approve' &&
+              <>
+                <div>
+                  Line Group: {project.lineLink}
+                  {
+
+                    currentJob
                       .filter((job) => (job.key === project.jobId))[0]
-                      .lineLink}
-                  />
-                  :
-                  <div>No line link</div>
-              }
-            </div>
-            <div>Score: {project.score ? project.score : 'Uncalibrated'}</div>
+                      .lineLink !== '-' ?
+                      <QRCode
+                        value={currentJob
+                          .filter((job) => (job.key === project.jobId))[0]
+                          .lineLink}
+                      />
+                      :
+                      <div>No line link</div>
+                  }
+                </div>
+                <div>Score: {project.score ? project.score : 'Uncalibrated'}</div>
+              </>
+            }
           </Space>
         </>
       ))}

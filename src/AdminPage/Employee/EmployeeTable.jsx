@@ -41,19 +41,21 @@ export default function EmployeeTable({
           </tr>
         </thead>
         <tbody>
-          {employee.slice(10 * paginator, 10 * (paginator + 1)).map((em) => (
-            <tr key={em.key}>
-              <td>{em.name}</td>
-              <td>{em.firstName} {em.lastName}</td>
-              <td>{getDisplayRole(em.role)}</td>
-              <td>{getDisplayRegion(em.branch)}</td>
-              <td>{em.branch}</td>
-              <td>{em.score ? em.score : 0}</td>
-              <td>
-                <button onClick={() => navigate(`/${em.key}`)}>View</button>
-              </td>
-            </tr>
-          ))}
+          {employee
+            .slice(10 * paginator, 10 * (paginator + 1))
+            .map((em) => (
+              <tr key={em.key}>
+                <td>{em.name}</td>
+                <td>{em.firstName} {em.lastName}</td>
+                <td>{getDisplayRole(em.role)}</td>
+                <td>{getDisplayRegion(em.branch)}</td>
+                <td>{em.branch}</td>
+                <td>{em.score ? em.score : 0}</td>
+                <td>
+                  <button onClick={() => navigate(`/${em.key}`)}>View</button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <br />
