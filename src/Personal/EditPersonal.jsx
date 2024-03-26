@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Input, Form, Select } from 'antd'
+import { Input, Form, Select, Divider } from 'antd'
 import { url } from "../const/url";
 import { useParams } from 'react-router-dom'
 import { roleOption } from "../function/role";
@@ -66,9 +66,13 @@ export default function EditPersonal() {
           isLoading && !userData ?
             <div>Loading...</div>
             :
-            <Form form={editForm} onFinish={handleUpdateFinish}>
+            <Form form={editForm} onFinish={handleUpdateFinish}
+              labelCol={{ span: 4 }}
+            >
               <div>Name: {userData?.firstName} {userData?.lastName}</div>
               <div>Employee ID: {userData?.name}</div>
+              <Divider />
+              <h2>New Information</h2>
               <Form.Item label="Role" name="role">
                 <Select options={roleOption} />
               </Form.Item>
