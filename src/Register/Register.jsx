@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, Select, Spin } from "antd";
 import './Register.css'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { url } from '../const/url'
 import MessageAPI from "../Message/Message";
 import { dataRemap } from "../function/dataRemap";
@@ -115,6 +115,9 @@ export default function Register() {
             </div>
           </Form>
         </Spin>
+        <Link to={'/forgetpassword'}>
+          Forget Password
+        </Link>
       </div >
     </>
   )

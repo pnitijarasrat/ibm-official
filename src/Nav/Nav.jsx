@@ -22,7 +22,7 @@ export default function Nav() {
       <div className="logo">IBM&CO</div>
       {
         auth.token ?
-          width > 500 ?
+          width > 800 ?
             <ul className="desktop-nav">
               <Link to={'/'}>Home</Link>
               <Link to={'/recruit'}>Recruit</Link>

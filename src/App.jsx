@@ -21,6 +21,7 @@ import Leaderboard from './Personal/Leaderboard'
 import Learning from './Learning/Learning'
 import NewLearn from './Learning/NewLearning'
 import EditPersonal from './Personal/EditPersonal'
+import ForgetPassword from './Register/ForgetPassword'
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/forgetpassword' element={<ForgetPassword />} />
           <Route element={<PrivateRoute />} >
             <Route element={<AdminRoute />} >
               <Route path='/new-recruit' element={<NewRecruitment />} />
