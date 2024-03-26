@@ -83,6 +83,7 @@ export default function EditPersonal() {
                 <button>{isUpdating ? 'Updating' : 'Update'}</button>
                 <button onClick={(e) => {
                   e.preventDefault()
+                  navigate(-1)
                 }}>Back</button>
               </div>
             </Form>
