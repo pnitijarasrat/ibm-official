@@ -51,8 +51,9 @@ export default function EmployeeTable({
                 <td>{getDisplayRegion(em.branch)}</td>
                 <td>{em.branch}</td>
                 <td>{em.score ? em.score : 0}</td>
-                <td>
+                <td className="gap">
                   <button onClick={() => navigate(`/${em.key}`)}>View</button>
+                  <button onClick={() => navigate(`/edit/${em.key}`)}>Edit</button>
                 </td>
               </tr>
             ))}

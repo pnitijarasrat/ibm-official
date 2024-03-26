@@ -20,6 +20,7 @@ import JobDesc from './AdminPage/Recruitment/JobDesc'
 import Leaderboard from './Personal/Leaderboard'
 import Learning from './Learning/Learning'
 import NewLearn from './Learning/NewLearning'
+import EditPersonal from './Personal/EditPersonal'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
               <Route path='/admin-all-employee' element={<AllEmployee />} />
               <Route path='/admin-all-recruitment' element={<AllRecruitment />} />
               <Route path='/new-learn' element={<NewLearn />} />
+              <Route path='/edit/:userId' element={<EditPersonal />} />
             </Route>
             <Route path='/' element={<Home />} />
             <Route path='/:userId' element={<Personal />} />

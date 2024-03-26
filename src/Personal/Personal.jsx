@@ -153,7 +153,10 @@ export default function Personal() {
               <div>All Approved Project: {history.filter((his) => (his.status === 'approve')).length}</div>
               <div>Score: {userData.score || 0}</div>
               {/* <div><button onClick={() => updateProject(history.filter((his) => (his.status === 'approve')).length)}>Sync Change</button></div> */}
-              <div><button onClick={() => navigate('/leaderboard')}>View Leaderboard</button></div>
+              <div className="gap">
+                <button onClick={() => navigate('/leaderboard')}>View Leaderboard</button>
+                {isAdmin(user.role) && <button onClick={() => navigate(`/edit/${userId}`)}>Edit</button>}
+              </div>
             </Space>
             :
             <div>No Data</div>
