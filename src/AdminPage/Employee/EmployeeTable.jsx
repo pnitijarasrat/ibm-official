@@ -3,6 +3,7 @@ import { getDisplayRole } from "../../function/role";
 import './EmployeeTable.css'
 import { getDisplayRegion } from "../../const/department";
 import { useNavigate } from "react-router-dom";
+import { Popover } from 'antd'
 
 export default function EmployeeTable({
   employee
@@ -51,9 +52,17 @@ export default function EmployeeTable({
                 <td>{getDisplayRegion(em.branch)}</td>
                 <td>{em.branch}</td>
                 <td>{em.score ? em.score : 0}</td>
-                <td className="gap">
-                  <button onClick={() => navigate(`/${em.key}`)}>View</button>
-                  <button onClick={() => navigate(`/edit/${em.key}`)}>Edit</button>
+                <td>
+                  <Popover content={
+                    <div className="gap">
+                      <button onClick={() => navigate(`/${em.key}`)}>View</button>
+                      <button onClick={() => navigate(`/edit/${em.key}`)}>Edit</button>
+                    </div>
+                  }
+                    title="Action"
+                  >
+                    <button>Action</button>
+                  </Popover>
                 </td>
               </tr>
             ))}
