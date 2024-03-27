@@ -149,7 +149,6 @@ export default function Register() {
             </div>
           </Form>
         </Spin>
-        <Link to={"/forgetpassword"}>Forget Password</Link>
       </div>
     </>
   );

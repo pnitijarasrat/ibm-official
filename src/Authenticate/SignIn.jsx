@@ -2,6 +2,7 @@ import { Form, Input, Spin } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 import "./SignIn.css";
 import { useAuth } from "./AuthProvider";
@@ -43,6 +44,8 @@ export default function SignIn() {
           </div>
         </Form>
       </Spin>
+      <br />
+      <Link to={"/forgetpassword"}>Forget Password</Link>
       <br />
       <div style={{ padding: "0 32px", color: "#aaa" }}>
         If this is your first login (after register) and encounter{" "}
