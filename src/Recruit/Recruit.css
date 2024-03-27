@@ -1,20 +1,29 @@
 .job-card {
-    margin: 8px 0;
-    display: flex;
-    gap: 16px;
-    padding-bottom: 16px;
-    display: flex;
-    justify-content: space-between;
+  margin: 8px 0;
+  display: flex;
+  gap: 16px;
+  padding-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.job-card:hover {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .job-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .recruit-action {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+a {
+  text-decoration: none;
 }
