@@ -83,10 +83,6 @@ export default function Register() {
       {contextHolder}
       <div className="register">
         <h1>Register</h1>
-        <div>
-          If this is your first login (after register) and encounter{" "}
-          <i>Incorrect Password</i>, refresh and try again :)
-        </div>
         <Spin spinning={isLoading}>
           {error && <div className="error-text">{error}</div>}
           <br />
