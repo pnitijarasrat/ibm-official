@@ -100,7 +100,7 @@ export default function JobDesc() {
         <Space direction="vertical">
           <div>Job Title: {jobData.name}</div>
           <div>Job Description: {jobData.desc}</div>
-          <div>Job Score: {jobData.score ? job.score : 0}</div>
+          <div>Job Score: {jobData.score ? jobData.score : 0}</div>
           <div>
             View JD:{" "}
             <a>
