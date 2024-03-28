@@ -96,18 +96,16 @@ export default function Recruit() {
               ? job
               : job.filter((j) => j.department === jobFilter)
             ).map((job) => (
-              <Link key={job.key} to={`/recruit/${job.key}`}>
-                <Job
-                  id={job.key}
-                  key={job.key}
-                  name={job.name}
-                  desc={job.desc}
-                  period={job.period}
-                  department={job.department}
-                  get={getJob}
-                  link={job.link}
-                />
-              </Link>
+              <Job
+                id={job.key}
+                key={job.key}
+                name={job.name}
+                desc={job.desc}
+                period={job.period}
+                department={job.department}
+                get={getJob}
+                link={job.link}
+              />
             ))
           ) : (
             <div>
