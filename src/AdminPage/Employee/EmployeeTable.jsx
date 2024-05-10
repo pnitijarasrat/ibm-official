@@ -3,7 +3,6 @@ import { getDisplayRole } from "../../function/role";
 import './EmployeeTable.css'
 import { getDisplayRegion } from "../../const/department";
 import { useNavigate } from "react-router-dom";
-import { Popover } from 'antd'
 
 export default function EmployeeTable({
   employee
@@ -37,35 +36,24 @@ export default function EmployeeTable({
             <th>Role</th>
             <th>Region</th>
             <th className="centered">Branch Number</th>
-            <th>Score</th>
+            <th>Project Count</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {employee
-            .slice(10 * paginator, 10 * (paginator + 1))
-            .map((em) => (
-              <tr key={em.key}>
-                <td>{em.name}</td>
-                <td>{em.firstName} {em.lastName}</td>
-                <td>{getDisplayRole(em.role)}</td>
-                <td>{getDisplayRegion(em.branch)}</td>
-                <td>{em.branch}</td>
-                <td>{em.score ? em.score : 0}</td>
-                <td>
-                  <Popover content={
-                    <div className="gap">
-                      <button onClick={() => navigate(`/${em.key}`)}>View</button>
-                      <button onClick={() => navigate(`/edit/${em.key}`)}>Edit</button>
-                    </div>
-                  }
-                    title="Action"
-                  >
-                    <button>Action</button>
-                  </Popover>
-                </td>
-              </tr>
-            ))}
+          {employee.slice(10 * paginator, 10 * (paginator + 1)).map((em) => (
+            <tr key={em.key}>
+              <td>{em.name}</td>
+              <td>{em.firstName} {em.lastName}</td>
+              <td>{getDisplayRole(em.role)}</td>
+              <td>{getDisplayRegion(em.branch)}</td>
+              <td>{em.branch}</td>
+              <td>{em.project ? em.project.length : 0}</td>
+              <td>
+                <button onClick={() => navigate(`/${em.key}`)}>View</button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <br />

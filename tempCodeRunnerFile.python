@@ -1,0 +1,14 @@
+def solution(A):
+    Array = set(A)
+    
+    Array = {i for i in Array if i > 0}
+    print(Array)
+
+    SPI = 1
+    while SPI in Array:
+        SPI += 1
+
+    return SPI
+
+A = [1,2,1,3,4,5,6,7,8,9,10]
+print(solution(A))

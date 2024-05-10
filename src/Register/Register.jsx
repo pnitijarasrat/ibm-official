@@ -17,12 +17,12 @@ export default function Register() {
   const { success, contextHolder } = MessageAPI();
 
   const roleOption = [
-    { label: "Area Manager", value: "areaManager" },
-    { label: "Area Assist Manager", value: "areaAssistManager" },
-    { label: "Manager", value: "manager" },
-    { label: "Assist Manager", value: "assistManager" },
-    { label: "Operator", value: "operator" },
-  ];
+    { label: 'Area Manager', value: 'areaManager' },
+    { label: 'Area Assist Manager', value: 'areaAssistManager' },
+    { label: 'Manager', value: 'manager' },
+    { label: 'Assist Manager', value: 'assistManager' },
+    { label: 'Operator', value: 'operator' },
+  ]
 
   const getAccount = async () => {
     setIsLoading(true);
@@ -30,16 +30,16 @@ export default function Register() {
       const res = await fetch(`${url}account.json`);
       const data = await res.json();
       const accountArray = dataRemap(data);
-      setAccount(accountArray.map((data) => data.username));
+      setAccount(accountArray.map((data) => (data.username)));
       setIsLoading(false);
     } catch (e) {
       setIsLoading(false);
     }
-  };
+  }
 
   const register = async () => {
-    setIsRegistering(true);
-    const registerData = registerForm.getFieldsValue(true);
+    setIsRegistering(true)
+    const registerData = registerForm.getFieldsValue(true)
     const payload = {
       name: registerData.user,
       username: registerData.username,
@@ -50,33 +50,31 @@ export default function Register() {
       branch: registerData.branch,
       score: 0,
       project: [],
-    };
-    if (account.includes(registerData.username))
-      return setIsError("This username is taken.");
-    if (registerData.password !== registerData.confirmPassword)
-      return setIsError("Password and Confirm Password do not match.");
+    }
+    if (account.includes(registerData.username)) return setIsError("This username is taken.")
+    if (registerData.password !== registerData.confirmPassword) return setIsError('Password and Confirm Password do not match.')
     try {
       const res = await fetch(`${url}account.json`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(payload),
         headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      setIsRegistering(false);
+          'Content-Type': 'application/json'
+        }
+      })
+      setIsRegistering(false)
       if (res.ok) {
-        success("Register Successfully");
-        navigate("/sign-in");
+        success("Register Successfully")
+        navigate('/sign-in')
       }
     } catch (e) {
-      setIsRegistering(false);
-      setIsError("Cannot Register.");
+      setIsRegistering(false)
+      setIsError('Cannot Register.')
     }
-  };
+  }
 
   useEffect(() => {
-    getAccount();
-  }, []);
+    getAccount()
+  }, [])
 
   return (
     <>
@@ -87,60 +85,28 @@ export default function Register() {
           {error && <div className="error-text">{error}</div>}
           <br />
           <Form form={registerForm} onFinish={register} layout="vertical">
-            <Form.Item
-              name="username"
-              label="Username"
-              rules={[{ required: true, message: "Required" }]}
-            >
+            <Form.Item name="username" label="Username" rules={[{ required: true, message: 'Required' }]}>
               <Input />
             </Form.Item>
-            <Form.Item
-              name="password"
-              label="Password"
-              rules={[{ required: true, message: "Required" }]}
-            >
+            <Form.Item name="password" label="Password" rules={[{ required: true, message: 'Required' }]}>
               <Input />
             </Form.Item>
-            <Form.Item
-              name="confirmPassword"
-              label="Confirm Password"
-              rules={[{ required: true, message: "Required" }]}
-            >
+            <Form.Item name="confirmPassword" label="Confirm Password" rules={[{ required: true, message: 'Required' }]}>
               <Input />
             </Form.Item>
-            <Form.Item
-              name="user"
-              label="Student ID"
-              rules={[{ required: true, message: "Required" }]}
-            >
+            <Form.Item name="user" label="Student ID" rules={[{ required: true, message: 'Required' }]}>
               <Input />
             </Form.Item>
-            <Form.Item
-              name="firstName"
-              label="First Name"
-              rules={[{ required: true, message: "Required" }]}
-            >
+            <Form.Item name="firstName" label="First Name" rules={[{ required: true, message: 'Required' }]}>
               <Input />
             </Form.Item>
-            <Form.Item
-              name="lastName"
-              label="Last Name"
-              rules={[{ required: true, message: "Required" }]}
-            >
+            <Form.Item name="lastName" label="Last Name" rules={[{ required: true, message: 'Required' }]}>
               <Input />
             </Form.Item>
-            <Form.Item
-              name="branch"
-              label="Branch Number"
-              rules={[{ required: true, message: "Required" }]}
-            >
+            <Form.Item name="branch" label="Branch Number" rules={[{ required: true, message: 'Required' }]}>
               <Input />
             </Form.Item>
-            <Form.Item
-              name="position"
-              label="Position"
-              rules={[{ required: true, message: "Required" }]}
-            >
+            <Form.Item name="position" label="Position" rules={[{ required: true, message: 'Required' }]}>
               <Select options={roleOption} />
             </Form.Item>
             <div className="register-action">
@@ -149,7 +115,7 @@ export default function Register() {
             </div>
           </Form>
         </Spin>
-      </div>
+      </div >
     </>
-  );
+  )
 }

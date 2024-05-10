@@ -62,6 +62,7 @@ export default function Leaderboard() {
           <col style={{ width: '15%' }} /> {/* ID column width */}
           <col style={{ width: '20%' }} /> {/* Name column width */}
           <col style={{ width: '35%' }} /> {/* Role column width */}
+          <col style={{ width: '20%' }} /> {/* Region column width */}
           <col style={{ width: '10%' }} /> {/* Branch Number column width */}
         </colgroup>
         <thead>
@@ -69,6 +70,7 @@ export default function Leaderboard() {
             <th>Rank</th>
             <th>ID</th>
             <th>Name</th>
+            <th>Project Count</th>
             <th>Score</th>
           </tr>
         </thead>
@@ -82,13 +84,14 @@ export default function Leaderboard() {
             :
             employee.length !== 0 ?
               employee
-                .filter((em) => (!isAdmin(em.role)))
+                // .filter((em) => (!isAdmin(em.role)))
                 .slice(0, currentLength)
                 .map((em, rank) => (
                   <tr key={em.key}>
                     <td>{rank += 1}</td>
                     <td>{em.name}</td>
                     <td>{em.firstName} {em.lastName}</td>
+                    <td>{em.project ? em.project : 0}</td>
                     <td>{em.score ? em.score : 0}</td>
                   </tr>
                 ))
