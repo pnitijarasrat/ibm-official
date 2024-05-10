@@ -6,13 +6,11 @@ import { Space, Divider, QRCode } from "antd";
 import { dataRemap } from "../function/dataRemap";
 import { getDisplayRole, isAdmin } from "../function/role";
 import { getDisplayRegion } from "../const/department";
-import ShowScore from "./ShowScore";
 
 export default function Personal() {
   const [isLoading, setIsLoading] = useState(false)
   const [userData, setUserData] = useState(null)
   const [history, setHistory] = useState([])
-  const [historyadmin, setHistoryadmin] = useState([])
   const [currentJob, setCurrentJob] = useState([])
 
   const { userId } = useParams()
@@ -29,15 +27,7 @@ export default function Personal() {
       const jobArray = jobData ? dataRemap(jobData) : []
       setCurrentJob(jobArray.map((job) => (job.key)))
       setUserData(data)
-      {isAdmin(user.role) ? (
-        <>
-        {getHistoryAdmin(data)}
-        </>
-      ) : (
-      <>
-      {await getHistory(data)}
-      </>
-      )}
+      await getHistory(data)
       setIsLoading(false)
     } catch (e) {
       setIsLoading(false)
@@ -84,43 +74,12 @@ export default function Personal() {
     }
   }
 
-  const getHistoryAdmin = async (employee) => {
-    setIsLoading(true)
-    try {
-      const res = await fetch(`${url}job.json`)
-      const data = await res.json()
-      let historyArray = []
-      if (data) historyArray = dataRemap(data)
-        // console.log(historyArray)
-      setHistoryadmin(historyArray.filter((his) => {
-        if (his.owner.id === employee.name)
-          return his
-      }))
-      console.log(historyArray.filter((his) => {
-        if (his.owner.id === employee.name)
-          return his
-      }))
-      setIsLoading(false)
-    } catch (e) {
-      setIsLoading(false)
-    }
-  }
 
   const ProjectList = ({ projects }) => (
     <Space direction="vertical">
       {projects.map((project) => (
         <>
           <div key={project.key}>
-          {isAdmin(user.role) ? (
-            <>
-              <div>
-                Project Name: {project.name}
-              </div>
-              <div>
-                <button onClick={() => navigate(`/evaluation/${project.name}/${userId}`)}>Evaluation: {project.name}</button>
-              </div>
-            </>
-          ) : (
             <>
               <div>
                 Project Name: {project.jobName}
@@ -133,7 +92,6 @@ export default function Personal() {
                 <button onClick={() => navigate(`/evaluation/${project.jobName}/${userId}`)}>Evaluation: {project.jobName}</button>
               </div>
             </>
-          )}
           </div>
           <Divider />
         </>
@@ -155,11 +113,6 @@ export default function Personal() {
     </div>
   );
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  function toggle() {
-    setIsOpen((isOpen) => !isOpen);
-  }
 
   useEffect(() => {
     getUserData()
@@ -192,38 +145,19 @@ export default function Personal() {
               <div>Region: {getDisplayRegion(userData.branch)}</div>
               <div>Branch: {userData.branch}</div>
               <div>All Approved Project: {history.filter((his) => (his.status === 'approve')).length}</div>
-              {/* <div>Score: {userData.score || 0}</div> */}
-              {isAdmin(user.role) ? (
-                <></>
-              ):(
-                <div>
-                <button onClick={toggle}>{isOpen ? "Hide Score" : "Show Score"}</button>
-                {isOpen && <ShowScore />}
-              </div>  
-              )}
-
+              <div>Score: {userData.score || 0}</div>
               <div><button onClick={() => updateProject(history.filter((his) => (his.status === 'approve')).length)}>Sync Change</button></div>
-              {isAdmin(user.role) && 
-                <div><button onClick={() => navigate('/leaderboard')}>View Leaderboard</button></div>
-              }            
-              </Space>
+              <div><button onClick={() => navigate('/leaderboard')}>View Leaderboard</button></div>
+            </Space>
             :
             <div>No Data</div>
       }
       <Divider />
-      { isAdmin(user.role) ?(
-      <>
-        <StatusSection title="All open projects" status="done" projects={historyadmin} />
-      </>
-      )
-      :(
-        <>
-        <StatusSection title="Pending Request" status="pending" projects={history} />
-        <StatusSection title="Approved Request" status="approve" projects={history} />
-        </>
-      )
+      <StatusSection title="Pending Request" status="pending" projects={history} />
+      <StatusSection title="Approved Request" status="approve" projects={history} />
 
-      }
+
+      
     </div>
   )
 }

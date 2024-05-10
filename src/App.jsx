@@ -20,10 +20,17 @@ import JobDesc from './AdminPage/Recruitment/JobDesc'
 import Leaderboard from './Personal/Leaderboard'
 import Learning from './Learning/Learning'
 import NewLearn from './Learning/NewLearning'
+import Evaluation from './Personal/Evaluation'
+import Assessed from './Personal/Assessed'
+import Calculation from './Personal/Calculation'
+import ShowScore from './Personal/ShowScore'
+import EvaluationProjectOwner from './Personal/EvaluateProjectOwner'
 import EditPersonal from './Personal/EditPersonal'
 import ForgetPassword from './Register/ForgetPassword'
+import ShowLeaderboard from './Personal/showLeaderboard'
 
 function App() {
+  // getDisplayRole function
 
   return (
     <BrowserRouter>
@@ -44,13 +51,16 @@ function App() {
               <Route path='/edit/:userId' element={<EditPersonal />} />
             </Route>
             <Route path='/' element={<Home />} />
-            <Route path='/:userId' element={<Personal />} />
-            <Route path='/leaderboard' element={<Leaderboard />} />
+            <Route path='/:userId' element={<><Personal /><Calculation /></>} />
+            <Route path='/leaderboard' element={<ShowLeaderboard />} />
             <Route path='/link-tree' element={<LinkTree />} />
             <Route path='/recruit-table' element={<RecruitTable />} />
             <Route path='/recruit' element={<Recruit />} />
             <Route path='/recruit/:jobId' element={<JobDesc />} />
             <Route path='/learning' element={<Learning />} />
+            <Route path='/evaluation/:jobName/:userId' element={<Evaluation />} />
+            <Route path='/assessed/:assessed_person/:jobName/:userId/:assessor' element={<Assessed />} />
+            <Route path='/evaluate/:jobName/:userId/:assessor' element={<EvaluationProjectOwner />} />
           </Route>
         </Routes>
       </AuthProvider>
