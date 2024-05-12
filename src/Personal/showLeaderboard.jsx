@@ -67,15 +67,23 @@ export default function ShowLeaderboard() {
                     })
                     // console.log(headScore)
                     // console.log(coworkerScore)
-                    const totalHeadScore = !isNaN(headScore.reduce((acc, curr) => acc + curr, 0)) ? headScore.reduce((acc, curr) => acc + curr, 0) : 0
-                    const avgHeadScore = totalHeadScore / headScore.length
-                    const totalCoScore = !isNaN(coworkerScore.reduce((acc, curr) => acc + curr, 0)) ? coworkerScore.reduce((acc, curr) => acc + curr, 0) : 0
-                    const avgCoScore = totalCoScore / coworkerScore.length
-                    totalScoreData[job] = avgHeadScore + avgCoScore
-                    const jobObject = jobData.find(j => j.name === job);
-                    if (jobObject) {
-                        totalScoreData[job] *= jobObject.score*0.01
-                    }
+                    const totalHeadScore = headScore.reduce((acc, curr) => acc + curr, 0)
+                    let avgHeadScore = totalHeadScore / headScore.length
+                    const totalCoScore = coworkerScore.reduce((acc, curr) => acc + curr, 0)
+                    let avgCoScore = totalCoScore / coworkerScore.length
+                    avgHeadScore = avgHeadScore || 0
+                    avgCoScore = avgCoScore || 0
+                    totalScoreData[job] = (avgHeadScore + avgCoScore).toFixed(2)
+                    jobData.forEach(jobdata => {
+                        if (jobdata.name === job){
+                            if (jobdata.memberRequired !== "1"){
+                                totalScoreData[job] *= jobdata.score*0.01
+                            }
+                            if (jobdata.memberRequired === "1"){
+                                totalScoreData[job] *= jobdata.score/60
+                            }
+                        }
+                    })
                     headScore = []
                     coworkerScore = []
                 })
@@ -95,7 +103,7 @@ export default function ShowLeaderboard() {
             }
         })
         // console.log(Object.keys(everyoneTotalScoreData).length)
-        console.log(everyoneTotalScoreData)
+        // console.log(everyoneTotalScoreData)
         setScoreboard(everyoneTotalScoreData)
     }, [accountData,jobData])
 
