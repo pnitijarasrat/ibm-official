@@ -85,40 +85,54 @@ export default function ShowScore() {
         let head = [];
         let coworker = [];
         Object.keys(scoreData).forEach(job => {
+            let adminEvaluate = false
+            let coEvaluate = false
+            let numCoEvaluate = 0
             Object.keys(scoreData[job]).forEach(role =>{
                 if(role === "admin"){
+                    adminEvaluate = true
                     Object.values(scoreData[job][role]).forEach(scoreArr);
                     function scoreArr(item){
                         head.push(item)
                     }
                 }
                 else {
+                    coEvaluate = true
                     Object.values(scoreData[job][role]).forEach(scoreArr);
                     function scoreArr(item){
                         coworker.push(item)
+                        numCoEvaluate += 1
                     }
                 }
             })
             const totalHeadScore = head.reduce((acc, curr) => acc + curr, 0);
-            const avgHeadScore = totalHeadScore / head.length;
+            let avgHeadScore = totalHeadScore / head.length;
             const totalCoScore = coworker.reduce((acc, curr) => acc + curr, 0);
-            const avgCoScore = totalCoScore / coworker.length;
-            totalScore[job] = avgHeadScore + avgCoScore;
-            const jobObject = jobData.find(j => j.name === job);
-            if (jobObject) {
-                totalScore[job] *= jobObject.score*0.01
-            }
+            let avgCoScore = totalCoScore / coworker.length;
+            avgHeadScore = avgHeadScore || 0
+            avgCoScore = avgCoScore || 0
+            totalScore[job] = [avgHeadScore + avgCoScore, [adminEvaluate, numCoEvaluate]]
+            jobData.forEach(jobdata => {
+                if (jobdata.name === job){
+                    if (jobdata.memberRequired !== "1"){
+                        totalScore[job][0] *= jobdata.score*0.01
+                    }
+                    if (jobdata.memberRequired === "1"){
+                        totalScore[job][0] *= jobdata.score/60
+                    }
+                }
+            })
             head = [];
             coworker = [];
         });
         setSumScore(totalScore);
-    }, [scoreData])
+    }, [scoreData,jobData])
 
     return(
         <div>
             {Object.keys(sumScore).map(job => (
                 job !== "totalScore" ?
-                <p key={job}>{job} - {Object.keys(sumScore).length > 0 ? sumScore[job] : "Loading..."}</p>
+                <p key={job}>{job} - {Object.keys(sumScore).length > 0 ? sumScore[job][0] : "Loading..."} ({sumScore[job][1][0] ? "หัวหน้าโปรเจคประเมินแล้ว" : "หัวหน้าโปรเจคยังไม่ได้ประเมิน"}, เพื่อนร่วมโปรเจคประเมินแล้ว {sumScore[job][1][1]} คน)</p>
                 : null            
             ))}
         </div>

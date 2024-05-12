@@ -106,6 +106,66 @@ export default function Personal() {
     }
   }
 
+  const ProjectListpending = ({ projects }) => (
+
+    <Space direction="vertical">
+
+      {projects.map((project) => (
+
+        <>
+
+          <div key={project.key}>
+
+          {isAdmin(user.role) ? (
+
+            <>
+
+              <div>
+
+                Project Name: {project.name} 
+
+              </div>
+
+          
+
+            </>
+
+          ) : (
+
+            <>
+
+              <div>
+
+                Project Name: {project.jobName}
+
+                {currentJob.includes(project.jobId) ? "" : "[This project has been deleted.]"}
+
+              </div>
+
+              <div>
+
+                Line Group: {project.lineLink !== '-' ? <QRCode value={project.lineLink} /> : "No Line Group Link"}
+
+              </div>
+
+      
+
+            </>
+
+          )}
+
+          </div>
+
+          <Divider />
+
+        </>
+
+      ))}
+
+    </Space>
+
+  );
+
   const ProjectList = ({ projects }) => (
     <Space direction="vertical">
       {projects.map((project) => (
@@ -141,19 +201,57 @@ export default function Personal() {
     </Space>
   );
 
+
   const StatusSection = ({ title, status, projects }) => (
+
     <div>
-      <h2>{title} [{projects.filter((project) => project.status === status).length}]</h2>
-      {projects.filter((project) => project.status === status).length !== 0 ? (
-  
-        <ProjectList projects={projects.filter((project) => project.status === status)} />
-          
+
+      <h2>
+
+        {title} [{projects.filter((project) => project.status === status).length}]
+
+      </h2>
+
+      {status === "pending" ? (
+
+        projects.filter((project) => project.status === status).length !== 0 ? (
+
+          <ProjectListpending
+
+            projects={projects.filter((project) => project.status === status)}
+
+          />
+
+        ) : (
+
+          <div>No {status} projects</div>
+
+        )
+
       ) : (
-        <div>No {status} projects</div>
+
+        projects.filter((project) => project.status === status).length !== 0 ? (
+
+          <ProjectList
+
+            projects={projects.filter((project) => project.status === status)}
+
+          />
+
+        ) : (
+
+          <div>No {status} projects</div>
+
+        )
+
       )}
+
       <Divider />
+
     </div>
+
   );
+
 
   const [isOpen, setIsOpen] = useState(false);
 

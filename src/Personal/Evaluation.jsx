@@ -110,7 +110,52 @@ export default function Evaluation() {
 
     {evaluation_employee.toString()}
 
+    const filterEvaluation = (jobName, assessor) => {
+      return evaluation.filter(item => item.jobName === jobName && item.assessor === assessor);
+    }
 
+    const updateScore = async (updatedScore,job,role,assessor,assessedKey) => {
+      setIsLoading(true)
+      try {
+        const requestBody = {
+          [`${assessor}`]: updatedScore
+        }
+
+        const res = await fetch(`${url}/account/${assessedKey}/score/${job}/${role}.json`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody)
+        })
+        if (res.ok) {
+          setIsLoading(false)
+          // console.log('Score updated successfully.');
+        } else {
+          console.error('Failed to update score:', res.status);
+        }
+      } catch (e) {
+        console.error('Error updating score:', error);
+        setIsLoading(false);
+      }
+    };
+
+    useEffect(() => {
+      const filteredArray = filterEvaluation(jobName, `${personal.firstName} ${personal.lastName}`)
+      filteredArray.forEach(item => {
+        let assessed_key = ""
+        employee.forEach(em => {
+          if (`${em.firstName} ${em.lastName}` === item.assessed) {
+            assessed_key = em.key
+          }
+        })
+        let tempSum = 0
+        for(let i = 1; i < Object.keys(item).length-4; i++){
+          tempSum += parseInt(item[`question${i}`]);
+        }
+        updateScore(tempSum,jobName,item.roleAssessor,item.assessor,assessed_key)
+      })
+    }, [evaluation,personal])
 
     return (
       <div className="page-container">
