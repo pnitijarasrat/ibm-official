@@ -59,7 +59,7 @@ export default function ForgetPassword() {
             <button>Request</button>
             <button onClick={(e) => {
               e.preventDefault()
-              setResult('จำเหี้ยไรได้บ้างครับ')
+              // setResult('จำเหี้ยไรได้บ้างครับ')
             }}>Forget Username</button>
             <button onClick={(e) => {
               e.preventDefault()

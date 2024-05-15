@@ -8,12 +8,26 @@ import createRefresh from "react-auth-kit/createRefresh";
 export default function JobDesc(
 ) {
   const [isLoading, setIsLoading] = useState(false)
+  const [userData, setUserData] = useState([])
   const [jobData, setJobData] = useState({})
   const [history, setHistory] = useState([])
   const [pending, setPending] = useState([])
   const navigate = useNavigate()
 
   const { jobId } = useParams()
+
+  const getUserData = async () => {
+    setIsLoading(true)
+    try {
+        const res = await fetch(`${url}/account.json`)
+        const data = await res.json()
+        const accountArray = data ? dataRemap(data) : []
+        setUserData(accountArray)
+        setIsLoading(false)
+    } catch (e) {
+        setIsLoading(false)
+    }
+  }
 
   const getJobData = async () => {
     setIsLoading(true)
@@ -27,24 +41,100 @@ export default function JobDesc(
       setIsLoading(false)
     }
   }
+
   const decline = async (job) => {
     try {
+      // Delete the job application
       const res = await fetch(`${url}applyHistory/${job.key}.json`, {
         method: 'DELETE',
         body: JSON.stringify(job.key),
         headers: {
           'Content-Type': 'application/json'
         }
-      })
+      });
+      
       if (res.ok) {
-        await getJobData()
+        // Fetch all evaluations
+        const evalRes = await fetch(`${url}evaluation.json`);
+        const evalData = await evalRes.json();
+        
+        // Find evaluations matching the employeeName and jobName
+        const evaluationKeys = Object.keys(evalData).filter(key => 
+          (evalData[key].assessed === job.employeeName || evalData[key].assessor === job.employeeName) && evalData[key].jobName === job.jobName
+        );
+  
+        // Delete each matching evaluation
+        for (const key of evaluationKeys) {
+          await fetch(`${url}evaluation/${key}.json`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+        }
+
+        let assessedKey = ""
+        userData.forEach(user => {
+          if (`${user.firstName} ${user.lastName}` === job.employeeName){
+            assessedKey = user.key
+          }
+        })
+
+        // Delete score from account
+        await fetch(`${url}account/${assessedKey}/score/${jobData.name}.json`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        // let countUserKeysLeft = 0
+        // userData.forEach(user => {
+        //   if (`${user.firstName} ${user.lastName}` === job.employeeName){
+        //     countUserKeysLeft = Object.keys(user).length
+        //   }
+        // })
+
+        // if (countUserKeysLeft == 9) {
+        //   await fetch(`${url}account/${assessedKey}.json`, {
+        //     method: 'PATCH',
+        //     headers: {
+        //       'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({score: 0})
+        //   })
+        // }
+  
+        // Refresh job data
+        await getJobData();
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
-
+  const editscore = async (job, newscore) => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(`${url}job/${job.key}.json`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            ...job,
+            score: newscore,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (res.ok) {
+          setIsLoading(false);
+          await getJobData();
+        }
+      } catch (e) {
+        setIsLoading(false);
+        console.log(e);
+      }
+    };
 
 
   const approve = async (job) => {
@@ -85,9 +175,17 @@ export default function JobDesc(
   }
 
   useEffect(() => {
+    getUserData()
     getJobData()
     getHistory()
   }, [])
+
+  const handleEditScore = () => {
+    const score = prompt("Enter new score:", jobData.score);
+    if (score !== null) {
+      editscore(jobData, score);
+    }
+  };
 
   return (
     <div className="page-container">
@@ -105,6 +203,12 @@ export default function JobDesc(
               </a>
             </div>
             <div>Owner: {jobData.owner ? `${jobData.owner.id} - ${jobData.owner.name}` : ''} </div>
+            <div>
+              Current score: {jobData.score}
+            </div>
+            <div>
+              <button onClick={handleEditScore}>Edit score</button>
+            </div>
           </Space>
           :
           <div>Loading...</div>
@@ -118,9 +222,11 @@ export default function JobDesc(
               history.map((his) => (
                 <Row key={his.key} gutter={16} align="middle">
                   <Col span={12}>
-                    {his.employeeId} - {his.employeeName}
+                    {his.employeeId} - {his.employeeName} 
                   </Col>
-            
+                  <Col>
+                  <button onClick={() => decline(his)}>Delete</button>
+                  </Col>
                 </Row>
               ))
               :
