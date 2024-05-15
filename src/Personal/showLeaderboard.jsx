@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { url } from "../const/url";
 import { dataRemap } from "../function/dataRemap";
 import { Card, Statistic, Row, Col } from "antd";
+import { getDisplayRole, isAdmin } from "../function/role";
 
 export default function ShowLeaderboard() {
     const [isLoading, setIsLoading] = useState(false)
@@ -23,7 +24,8 @@ export default function ShowLeaderboard() {
             const res = await fetch(`${url}/account.json`)
             const data = await res.json()
             const accountArray = data ? dataRemap(data) : []
-            setAccountData(accountArray)
+            const filteredAccountArray = accountArray.filter(user => !isAdmin(user.role))
+            setAccountData(filteredAccountArray)
             setIsLoading(false)
         } catch (e) {
             setIsLoading(false)
